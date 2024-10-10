@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>XXXXX</title>
+    <link rel="stylesheet" href="../index.css" />
+    <script src="https://unpkg.com/js-alert/dist/jsalert.min.js"></script>
+    <script src="../core/fetch.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="titlebar"></div>
+      <div class="container">
+        <h1>
+          App Disabled
+          <hr />
+          <p>
+            This version of the app is outdated and no longer supported. To
+            ensure you're receiving the most up-to-date features, bug fixes, and
+            security updates, we recommend visiting the official Inky SMP
+            Discord. There you'll find the latest releases, and direct support
+            from the development team.
+          </p>
+          <hr />
+          <button class="fill btn" onclick="window.close()">Exit App</button>
+          <button class="fill btn" onclick="openDiscord()">Open Discord</button>
+        </h1>
+      </div>
+    </div>
+    <script>
+      function openDiscord() {
+        const url = sessionStorage.getItem("UPDATER_URL");
+        if (url) {
+          window.open(url, "_blank");
+        } else {
+          JSAlert.alert("ᴜɴᴀʙʟᴇ ᴛᴏ ᴏᴘᴇɴ ᴅɪsᴄᴏʀᴅ");
+        }
+      }
+    </script>
+  </body>
+</html>

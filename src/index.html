@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Inky HQ 🌐</title>
+    <link rel="stylesheet" href="index.css" />
+    <script src="https://unpkg.com/js-alert/dist/jsalert.min.js"></script>
+    <script src="./common/alerts.js"></script>
+    <script src="./common/kill.js"></script>
+    <script src="./core/install.js"></script>
+    <script src="./common/master.js"></script>
+    <script>
+      manageAppData();
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="titlebar">
+        <img src="./assets/settings.png" class="menu-icon" onclick="oS()" />
+        <img src="./assets/exit.png" class="menu-icon" onclick="cW()" />
+      </div>
+      <div class="container">
+        <div class="text-container">
+          <h1>Inky HQ</h1>
+          <hr style="width: 50%; margin-left: 0" />
+          <p style="width: 50%; font-size: 12px">
+            The Inky HQ app is your essential tool for staying engaged with the
+            Inky SMP community. Whether you're a seasoned player or new to the
+            server, the app provides seamless access to all the information you
+            need. Stay updated with the latest server events, news, and
+            announcements in real time. You can easily check server status,
+            access important resources, and manage your gameplay preferences
+            directly from the app. Designed for convenience and efficiency, Inky
+            HQ ensures you have everything at your fingertips to enhance your
+            experience on Inky SMP. Keep an eye out for the stable release,
+            coming soon!
+          </p>
+        </div>
+        <div class="button-container">
+          <a href="#" class="btn fill" onclick="ERR1()">Start Your Adventure</a>
+          <a href="pages/games.html" class="btn fill">Earn Server Credits!</a>
+          <br />
+          <hr style="width: 100%" />
+          <br />
+          <a style="color: white" class="btn fill" onclick="window.close()"
+            >Exit App</a
+          >
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        if (!sessionStorage.getItem("OPENAPP_RAN")) {
+          OPENAPP();
+          sessionStorage.setItem("OPENAPP_RAN", "true");
+        }
+      });
+
+      function oS() {
+        alert("Settings", "Settings are not available in this version.");
+      }
+      function cW() {
+        window.close();
+      }
+    </script>
+  </body>
+</html>

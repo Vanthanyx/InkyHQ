@@ -1,0 +1,126 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap");
+
+:root {
+  --base: #0c0c0c; /* Base color */
+  --acc: var(--blue); /* Accent color */
+
+  /* Rainbow Accent Colors */
+  --red: #ff1744; /* Red */
+  --crimson: #dc143c; /* Crimson */
+  --orange: #ff5722; /* Orange */
+  --amber: #ffc107; /* Amber */
+  --yellow: #ffeb3b; /* Yellow */
+  --lime: #34f82e; /* Lime  */
+  --green: #00e676; /* Green */
+  --teal: #009688; /* Teal */
+  --cyan: #00bcd4; /* Cyan */
+  --blue: #2979ff; /* Blue */
+  --indigo: #3f51b5; /* Indigo */
+  --violet: #9c27b0; /* Violet */
+  --purple: #8e24aa; /* Purple */
+  --pink: #e91e63; /* Pink */
+  --magenta: #ff00ff; /* Magenta */
+}
+
+* {
+  font-family: "JetBrains Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.wrapper {
+  width: 950px;
+  height: 550px;
+  overflow: hidden;
+  background-color: var(--base);
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+.text-container {
+  width: 70%;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 30%;
+}
+
+h1 {
+  font-size: 36px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 18px;
+  color: #888;
+  margin-bottom: 40px;
+}
+
+.titlebar {
+  -webkit-app-region: drag;
+  width: 100%;
+  height: 20px;
+  background-color: var(--acc);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  padding: 0 0px;
+}
+
+.menu-icon {
+  height: 16px;
+  width: auto;
+  margin-right: 5px;
+}
+
+.btn {
+  text-decoration: none;
+  background: none;
+  border: 2px solid;
+  border-radius: 10px;
+  font: inherit;
+  line-height: 1;
+  margin: 0.5em;
+  padding: 1em 2em;
+  display: inline-block;
+  color: var(--color);
+  transition: 0.25s;
+  font-size: 14px;
+}
+
+.btn:hover,
+.btn:focus {
+  border-color: var(--hover);
+  color: #fff;
+}
+
+.fill {
+  --color: var(--acc);
+  --hover: color-mix(in srgb, var(--acc) 90%, white);
+}
+
+.fill:hover,
+.fill:focus {
+  box-shadow: inset 0 0 0 2em var(--hover);
+}
