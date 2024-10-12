@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Inky HQ 🌐</title>
+    <link rel="stylesheet" href="../index.css" />
+    <script src="https://unpkg.com/js-alert/dist/jsalert.min.js"></script>
+    <script src="../common/master.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="titlebar">
+        <img src="../assets/home.png" class="menu-icon" onclick="home()" />
+        <img src="../assets/exit.png" class="menu-icon" onclick="cW()" />
+      </div>
+      <div class="container">
+        <div class="text-container">
+          <h1>Settings</h1>
+          <hr style="width: 50%; margin-left: 0" />
+          <p style="width: 50%; font-size: 12px">
+            Welcome to the Settings page of Inky HQ! Here, you can customize
+            your app experience to suit your preferences. Adjust notification
+            settings to stay informed about the latest updates and events.
+            Manage your account details and privacy settings to ensure your
+            information is secure. Explore various options to personalize the
+            app interface, making your interaction with Inky SMP even more
+            enjoyable. Take control of your Inky HQ experience and tailor it to
+            your needs. Happy customizing!
+          </p>
+          <button class="btn fill" id="login-btn" onclick="login()">
+            Log In
+          </button>
+        </div>
+        <div class="button-container">
+          <label for="accent-color" class="setting-label">Accent Color</label>
+          <hr style="width: 100%" />
+          <select id="accent-color" class="btn fill">
+            <option value="default">Default (Blue)</option>
+            <option value="red">Red</option>
+            <option value="crimson">Crimson</option>
+            <option value="orange">Orange</option>
+            <option value="amber">Amber</option>
+            <option value="yellow">Yellow</option>
+            <option value="lime">Lime</option>
+            <option value="green">Green</option>
+            <option value="teal">Teal</option>
+            <option value="cyan">Cyan</option>
+            <option value="blue">Blue</option>
+            <option value="indigo">Indigo</option>
+            <option value="violet">Violet</option>
+            <option value="purple">Purple</option>
+            <option value="pink">Pink</option>
+            <option value="magenta">Magenta</option>
+          </select>
+          <br />
+          <br />
+          <label for="notification-settings" class="setting-label"
+            >Notification Settings</label
+          >
+          <hr style="width: 100%" />
+          <select id="notification-settings" class="btn fill">
+            <option value="on">Default (All)</option>
+            <option value="important">Important</option>
+            <option value="off">Off</option>
+          </select>
+
+          <br />
+          <br />
+
+          <button class="btn fill" style="align-self: center" onclick="save()">
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const accentColor = localStorage.getItem("ACC_COLOR");
+        const notificationSettings = localStorage.getItem("NOTIFS");
+        const username = localStorage.getItem("USERNAME");
+
+        if (accentColor) {
+          document.getElementById("accent-color").value = accentColor;
+        }
+
+        if (notificationSettings) {
+          document.getElementById("notification-settings").value =
+            notificationSettings;
+        }
+
+        if (username) {
+          document.getElementById("login-btn").innerText =
+            "Logged in as " + username;
+        }
+      });
+
+      function home() {
+        window.location.href = "../index.html";
+      }
+      function cW() {
+        window.close();
+      }
+
+      function login() {
+        JSAlert.prompt("Enter your username").then((username) => {
+          if (username) {
+            localStorage.setItem("USERNAME", username);
+            window.location.reload();
+          } else {
+            JSAlert.alert("Login Failed...");
+          }
+        });
+      }
+
+      function save() {
+        const accentColor = document.getElementById("accent-color").value;
+        const notificationSettings = document.getElementById(
+          "notification-settings"
+        ).value;
+
+        localStorage.setItem("ACC_COLOR", accentColor);
+        localStorage.setItem("NOTIFS", notificationSettings);
+
+        JSAlert.alert("Settings Saved!").then(() => {
+          window.location.reload();
+        });
+      }
+    </script>
+  </body>
+</html>

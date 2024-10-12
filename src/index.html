@@ -37,7 +37,9 @@
           </p>
         </div>
         <div class="button-container">
-          <a href="#" class="btn fill" onclick="ERR1()">Start Your Adventure</a>
+          <a href="pages/landing.html" class="btn fill"
+            >Announcements and Installations</a
+          >
           <a href="pages/games.html" class="btn fill">Earn Server Credits!</a>
           <br />
           <hr style="width: 100%" />
@@ -57,7 +59,7 @@
       });
 
       function oS() {
-        alert("Settings", "Settings are not available in this version.");
+        window.location.href = "./pages/settings.html";
       }
       function cW() {
         window.close();

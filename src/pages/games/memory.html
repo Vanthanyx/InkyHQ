@@ -16,7 +16,7 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
-        background-color: #333;
+        background-color: #1d1d21;
       }
       #memory-board {
         display: grid;
@@ -45,6 +45,18 @@
         color: white;
         font-size: 20px;
       }
+      #back-button {
+        padding: 5px 5px;
+        font-size: 12px;
+        cursor: pointer;
+        background-color: #444;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        position: fixed;
+        bottom: 5px;
+        left: 5px;
+      }
     </style>
   </head>
   <body>
@@ -52,6 +64,9 @@
     <div class="info">
       <p id="status"></p>
     </div>
+    <button id="back-button" onclick="window.history.back()">
+      &nbsp;↫&nbsp;
+    </button>
 
     <script>
       const board = document.getElementById("memory-board");

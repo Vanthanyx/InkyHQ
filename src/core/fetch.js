@@ -1,4 +1,5 @@
-const pastebinUrl = "https://pastebin.com/raw/Y9cvZeUe";
+const pastebinUrl =
+  "https://raw.githubusercontent.com/Vanthanyx/InkyHQ/refs/heads/master/db/web.js";
 const currentVersion = "0.8.22";
 
 fetch(pastebinUrl)
@@ -98,7 +99,10 @@ function setRandomAccentColor() {
     document.documentElement.style.setProperty("--acc", storedColor);
   } else {
     // Select a random color
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+    //const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    const randomColor = "var(--blue)";
+
     // Apply the random color to --acc
     document.documentElement.style.setProperty("--acc", randomColor);
     // Store the selected color in sessionStorage

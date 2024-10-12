@@ -14,7 +14,7 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
-        background-color: #333;
+        background-color: #1d1d21;
       }
       canvas {
         background-color: #111;
@@ -26,6 +26,18 @@
         font-size: 20px;
         margin-top: 10px;
       }
+      #back-button {
+        padding: 5px 5px;
+        font-size: 12px;
+        cursor: pointer;
+        background-color: #444;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        position: fixed;
+        bottom: 5px;
+        left: 5px;
+      }
     </style>
   </head>
   <body>
@@ -33,6 +45,9 @@
     <div class="info">
       <p id="status"></p>
     </div>
+    <button id="back-button" onclick="window.history.back()">
+      &nbsp;↫&nbsp;
+    </button>
 
     <script>
       const canvas = document.getElementById("gameCanvas");

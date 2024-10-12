@@ -1,5 +1,5 @@
 function OPENAPP() {
-  JSAlert.loader("Dᴇᴠ Bᴜɪʟᴅ 0.8.16¹ — Dɪsᴀʙʟᴇs 08/24/24").dismissIn(3000);
+  JSAlert.loader("Dᴇᴠ Bᴜɪʟᴅ 0.10.12¹ — Dɪsᴀʙʟᴇs 10/30/24").dismissIn(3000);
 }
 
 function ALERT1() {

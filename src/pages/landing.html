@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Inky HQ 🌐</title>
+    <link rel="stylesheet" href="../index.css" />
+    <script src="https://unpkg.com/js-alert/dist/jsalert.min.js"></script>
+    <script src="../common/master.js"></script>
+    <style>
+      label {
+        font-size: 16px;
+        color: white;
+      }
+      input {
+        height: 10%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid var(--acc);
+        border-radius: 10px;
+        background-color: var(--base);
+        color: white;
+      }
+      input:focus {
+        outline: white;
+        background-color: var(--acc);
+      }
+      li {
+        color: var(--acc);
+      }
+      .progress-bar {
+        width: 100%;
+        background-color: var(--dark_base);
+        margin-top: 10px;
+        border-radius: 10px;
+      }
+      .progress {
+        width: 1%;
+        height: 30px;
+        background-color: var(--acc);
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="titlebar">
+        <img src="../assets/home.png" class="menu-icon" onclick="home()" />
+        <img src="../assets/exit.png" class="menu-icon" onclick="cW()" />
+      </div>
+      <div class="container">
+        <div class="text-container">
+          <h1 style="font-size: 30px">Announcements and Installations</h1>
+          <hr style="width: 50%; margin-left: 0" />
+          <div class="news-area">
+            <h2>Latest News</h2>
+            <ul id="news"></ul>
+            <hr style="width: 50%; margin-left: 0" />
+            <h2>Installations</h2>
+            <div id="progress-container"></div>
+            <input type="text" id="inst" name="inst" value="Inst Code" />
+          </div>
+          <button class="btn fill" onclick="installApp()">Install</button>
+          <script>
+            function installApp() {
+              var inst = document.getElementById("inst").value;
+              if (inst == "Px1010") {
+                var progressContainer =
+                  document.getElementById("progress-container");
+
+                var progressBar = document.createElement("div");
+                progressBar.classList.add("progress-bar");
+
+                var progress = document.createElement("div");
+                progress.classList.add("progress");
+                progressBar.appendChild(progress);
+
+                progressContainer.appendChild(progressBar);
+
+                var width = 1;
+                var interval = setInterval(function () {
+                  if (width >= 100) {
+                    clearInterval(interval);
+                    progressContainer.removeChild(progressBar);
+                    JSAlert.alert("Installation Complete");
+                  } else {
+                    width++;
+                    progress.style.width = width + "%";
+                  }
+                }, 50);
+              } else {
+                JSAlert.alert("Invalid Code");
+              }
+            }
+          </script>
+        </div>
+      </div>
+    </div>
+    <script>
+      function home() {
+        window.location.href = "../index.html";
+      }
+      function cW() {
+        window.close();
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        var newsList = document.getElementById("news");
+        var newsArray = JSON.parse(sessionStorage.getItem("NEWS")) || [];
+
+        newsArray.forEach(function (newsItem) {
+          var li = document.createElement("li");
+          li.textContent = newsItem;
+          newsList.appendChild(li);
+        });
+      });
+    </script>
+  </body>
+</html>

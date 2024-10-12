@@ -12,39 +12,55 @@
   <body>
     <div class="wrapper">
       <div class="titlebar">
-        <img src="../assets/settings.png" alt="Settings" class="menu-icon" />
-        <img src="../assets/exit.png" alt="Exit" class="menu-icon" />
+        <img src="../assets/home.png" class="menu-icon" onclick="home()" />
+        <img src="../assets/exit.png" class="menu-icon" onclick="cW()" />
       </div>
 
       <div class="pre-registration">
         <h2>Server Minigames</h2>
         <p>
-          Looking for some extra cash? <br />
-          Participate in our server minigames to earn credits!
+          Looking to earn some extra credits? <br />
+          Join our server minigames and start collecting! Play, compete, <br />
+          and earn credits to use in-game. The more you play, the more you can
+          earn.
+
           <br />
           <br />
           <span
             style="
               background-color: var(--acc);
               text-decoration: underline;
+              font-weight: bold;
               border-radius: 3px;
               color: var(--base);
             "
-            >Each win will grant an extra 100¤ (Credits)</span
+            >&nbsp;Win ammounts: Snake 40¤, Pong 20¤, Memory 60¤, Slots
+            ±180¤&nbsp;</span
           >
         </p>
-        <a href="./games/snake.html" class="btn fill">Snake</a>
-        <a href="./games/pong.html" class="btn fill">Pong</a>
-        <a href="./games/memory.html" class="btn fill">Memory</a>
-        <a href="./games/slots.html" class="btn fill">[SLOTS]</a>
+        <div class="buttons-div">
+          <a href="./games/snake.html" class="btn fill"> Snake </a>
+          <a href="./games/pong.html" class="btn fill"> Pong </a>
+          <a href="./games/memory.html" class="btn fill"> Memory </a>
+          <a href="./games/slots.html" class="btn fill"> Slots ⭐ </a>
+        </div>
+        <br />
         <a
-          href="../index.html"
           class="btn fill"
           style="display: flex; justify-content: center; align-items: center"
+          onclick="ERR1()"
         >
-          Back Home
+          Credit Manager
         </a>
       </div>
     </div>
+    <script>
+      function home() {
+        window.location.href = "../index.html";
+      }
+      function cW() {
+        window.close();
+      }
+    </script>
   </body>
 </html>
