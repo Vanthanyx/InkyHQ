@@ -1,63 +1,87 @@
-const pastebinUrl =
+const webdbUrl =
   "https://raw.githubusercontent.com/Vanthanyx/InkyHQ/refs/heads/master/db/web.js";
 const currentVersion = "0.8.22";
 
-fetch(pastebinUrl)
-  .then((response) => response.text())
-  .then((data) => {
-    const webDbMatch = data.match(/var\s+WEB_DB_RUN\s*=\s*(true|false);/);
-    sessionStorage.setItem("WEB_DB_RUN", webDbMatch[1]);
-    const versionMatch = data.match(/var\s+LATEST_VERSION\s*=\s*"([^"]+)";/);
-    sessionStorage.setItem("LATEST_VERSION", versionMatch[1]);
-    const updaterUrlMatch = data.match(/var\s+UPDATER_URL\s*=\s*"([^"]+)";/);
-    sessionStorage.setItem("UPDATER_URL", updaterUrlMatch[1]);
-    const appLiveMatch = data.match(/var\s+APP_LIVE\s*=\s*(true|false);/);
-
-    // Check if APP_LIVE is defined and store the value properly
-    if (appLiveMatch) {
-      const APP_LIVE = appLiveMatch[1] === "true"; // Convert string to boolean
-      localStorage.setItem("APP_LIVE", APP_LIVE); // Store as a boolean in localStorage
-      console.log("APP_LIVE:", APP_LIVE);
-    } else {
-      alert("FATAL ERROR 0x0E\nApplication Disabled");
-      console.error("APP_LIVE not found in the fetched content.");
-    }
-
-    // Check if WEB_DB_RUN is defined and process it
-    if (webDbMatch) {
-      const WEB_DB_RUN = webDbMatch[1] === "true";
-      console.log("WEB_DB_RUN:", WEB_DB_RUN);
-      if (!WEB_DB_RUN) {
-        alert("FATAL ERROR 0x01\nApplication Disabled");
-        return;
+try {
+  fetch(webdbUrl)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("FATAL ERROR 0x03: Unable to fetch the data.");
       }
-    } else {
-      console.error("Variable WEB_DB_RUN not found in the fetched content.");
-      alert("FATAL ERROR 0x02\nApplication Disabled");
-      return;
-    }
+      return response.text();
+    })
+    .then((data) => {
+      try {
+        const webDbMatch = data.match(/var\s+WEB_DB_RUN\s*=\s*(true|false);/);
+        if (!webDbMatch) {
+          throw new Error("FATAL ERROR 0x02: WEB_DB_RUN not found.");
+        }
+        sessionStorage.setItem("WEB_DB_RUN", webDbMatch[1]);
 
-    // Check if LATEST_VERSION and UPDATER_URL are defined and process them
-    if (versionMatch && updaterUrlMatch) {
-      const LATEST_VERSION = versionMatch[1];
-      const UPDATER_URL = updaterUrlMatch[1];
-      console.log("LATEST_VERSION:", LATEST_VERSION);
-      console.log("UPDATER_URL:", UPDATER_URL);
+        const versionMatch = data.match(
+          /var\s+LATEST_VERSION\s*=\s*"([^"]+)";/
+        );
+        const updaterUrlMatch = data.match(
+          /var\s+UPDATER_URL\s*=\s*"([^"]+)";/
+        );
 
-      if (compareVersions(LATEST_VERSION, currentVersion)) {
-        alert(`A new version (${LATEST_VERSION}) is available. Please update.`);
-        window.location.href = UPDATER_URL;
+        if (!versionMatch || !updaterUrlMatch) {
+          throw new Error(
+            "FATAL ERROR 0x04: LATEST_VERSION or UPDATER_URL not found."
+          );
+        }
+
+        sessionStorage.setItem("LATEST_VERSION", versionMatch[1]);
+        sessionStorage.setItem("UPDATER_URL", updaterUrlMatch[1]);
+
+        const appLiveMatch = data.match(/var\s+APP_LIVE\s*=\s*(true|false);/);
+        const newsMatch = data.match(/var\s+NEWS\s*=\s*\[([^\]]+)\];/);
+
+        if (!newsMatch) {
+          alert("FATAL ERROR 0x0N\nNews Disabled");
+          throw new Error("NEWS variable not found.");
+        } else {
+          const newsArray = newsMatch[1]
+            .split(",")
+            .map((item) => item.trim().replace(/(^"|"$)/g, "")) // Remove surrounding quotes
+            .filter((item) => item.length > 0); // Filter out empty entries
+          sessionStorage.setItem("NEWS", JSON.stringify(newsArray));
+        }
+
+        if (appLiveMatch) {
+          const APP_LIVE = appLiveMatch[1] === "true"; // Convert string to boolean
+          localStorage.setItem("APP_LIVE", APP_LIVE); // Store as a boolean in localStorage
+          console.log("APP_LIVE:", APP_LIVE);
+        } else {
+          alert("FATAL ERROR 0x0E\nApplication Disabled");
+          throw new Error("APP_LIVE variable not found.");
+        }
+
+        const WEB_DB_RUN = webDbMatch[1] === "true";
+        if (!WEB_DB_RUN) {
+          alert("FATAL ERROR 0x01\nApplication Disabled");
+          throw new Error("WEB_DB_RUN is false.");
+        }
+
+        if (compareVersions(versionMatch[1], currentVersion)) {
+          alert(
+            `A new version (${versionMatch[1]}) is available. Please update.`
+          );
+          window.location.href = updaterUrlMatch[1];
+        }
+      } catch (error) {
+        console.error(error.message);
+        alert(error.message);
       }
-    } else {
-      console.error(
-        "LATEST_VERSION or UPDATER_URL not found in the fetched content."
-      );
-    }
-  })
-  .catch((error) => {
-    console.error("Error fetching data:", error);
-    alert("FATAL ERROR 0x03\nApplication Disabled");
-  });
+    })
+    .catch((error) => {
+      console.error("FATAL ERROR 0x03: Application Disabled - ", error);
+      alert("FATAL ERROR 0x03\nApplication Disabled\n" + error);
+    });
+} catch (error) {
+  console.error("FATAL ERROR 0x03: Failed to execute fetch - ", error);
+  alert("FATAL ERROR 0x03\nApplication Disabled\n" + error);
+}
 
 // Function to compare versions
 function compareVersions(latest, current) {
@@ -72,41 +96,44 @@ function compareVersions(latest, current) {
 }
 
 function setRandomAccentColor() {
-  // Define the array of colors
-  const colors = [
-    "var(--red)",
-    "var(--crimson)",
-    "var(--orange)",
-    "var(--amber)",
-    "var(--yellow)",
-    "var(--lime)",
-    "var(--green)",
-    "var(--teal)",
-    "var(--cyan)",
-    "var(--blue)",
-    "var(--indigo)",
-    "var(--violet)",
-    "var(--purple)",
-    "var(--pink)",
-    "var(--magenta)",
-  ];
+  try {
+    // Define the array of colors
+    const colors = [
+      "var(--red)",
+      "var(--crimson)",
+      "var(--orange)",
+      "var(--amber)",
+      "var(--yellow)",
+      "var(--lime)",
+      "var(--green)",
+      "var(--teal)",
+      "var(--cyan)",
+      "var(--blue)",
+      "var(--indigo)",
+      "var(--violet)",
+      "var(--purple)",
+      "var(--pink)",
+      "var(--magenta)",
+    ];
 
-  // Check if a color is already stored in sessionStorage
-  const storedColor = sessionStorage.getItem("ACC_COLOR");
+    // Check if a color is already stored in sessionStorage
+    const storedColor = sessionStorage.getItem("ACC_COLOR");
 
-  if (storedColor) {
-    // Use the stored color
-    document.documentElement.style.setProperty("--acc", storedColor);
-  } else {
-    // Select a random color
+    if (storedColor) {
+      // Use the stored color
+      document.documentElement.style.setProperty("--acc", storedColor);
+    } else {
+      // Select a random color
+      const randomColor = "var(--blue)";
 
-    //const randomColor = colors[Math.floor(Math.random() * colors.length)];
-    const randomColor = "var(--blue)";
-
-    // Apply the random color to --acc
-    document.documentElement.style.setProperty("--acc", randomColor);
-    // Store the selected color in sessionStorage
-    sessionStorage.setItem("ACC_COLOR", randomColor);
+      // Apply the random color to --acc
+      document.documentElement.style.setProperty("--acc", randomColor);
+      // Store the selected color in sessionStorage
+      sessionStorage.setItem("ACC_COLOR", randomColor);
+    }
+  } catch (error) {
+    console.error("FATAL ERROR 0x05: Error setting accent color - ", error);
+    alert("FATAL ERROR 0x05\nFailed to set accent color.");
   }
 }
 

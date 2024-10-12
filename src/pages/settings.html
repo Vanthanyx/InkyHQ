@@ -6,6 +6,22 @@
     <link rel="stylesheet" href="../index.css" />
     <script src="https://unpkg.com/js-alert/dist/jsalert.min.js"></script>
     <script src="../common/master.js"></script>
+    <style>
+      #version {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        font-size: 12px;
+        color: white;
+      }
+      #version-btn {
+        position: absolute;
+        bottom: 10px;
+        right: 65px;
+        font-size: 6px;
+        color: white;
+      }
+    </style>
   </head>
   <body>
     <div class="wrapper">
@@ -70,6 +86,9 @@
           <button class="btn fill" style="align-self: center" onclick="save()">
             Save
           </button>
+
+          <button id="version-btn" class="btn fill" onclick="cfu()">⟳</button>
+          <span id="version">vX.X.XX</span>
         </div>
       </div>
     </div>
@@ -102,14 +121,19 @@
       }
 
       function login() {
-        JSAlert.prompt("Enter your username").then((username) => {
+        window.open(
+          "./login.html",
+          "Login",
+          "width=450,height=350,frame=false"
+        );
+        /*JSAlert.prompt("Enter your username").then((username) => {
           if (username) {
             localStorage.setItem("USERNAME", username);
             window.location.reload();
           } else {
             JSAlert.alert("Login Failed...");
           }
-        });
+        });*/
       }
 
       function save() {
@@ -123,6 +147,12 @@
 
         JSAlert.alert("Settings Saved!").then(() => {
           window.location.reload();
+        });
+      }
+
+      function cfu() {
+        JSAlert.alert("Checking for updates...").then(() => {
+          JSAlert.alert("No updates available.");
         });
       }
     </script>

@@ -55,6 +55,7 @@
         if (!sessionStorage.getItem("OPENAPP_RAN")) {
           OPENAPP();
           sessionStorage.setItem("OPENAPP_RAN", "true");
+          location.reload();
         }
       });
 

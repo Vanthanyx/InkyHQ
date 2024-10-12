@@ -45,47 +45,11 @@ async function manageAppData() {
       await fs.access(folderPath);
     } catch {
       await fs.mkdir(folderPath, { recursive: true });
-      for (let i = 0; i < 4; i++) {
-        const randomFileName = Math.floor(
-          100000 + Math.random() * 900000
-        ).toString();
-        const randomFileNumber = Math.floor(
-          100000000000 + Math.random() * 900000000000
-        ).toString();
-        const filePath = path.join(folderPath, randomFileName);
-        await fs.writeFile(filePath, randomFileNumber);
-      }
     }
-  }
-}
-
-function obfuscateContent(content) {
-  return Buffer.from(content).toString("base64");
-}
-
-async function obfuscateFilesInFolder(folderPath) {
-  try {
-    const files = await fs.readdir(folderPath, { withFileTypes: true }); // Read all files and subdirectories in the directory
-
-    for (const file of files) {
-      const filePath = path.join(folderPath, file.name);
-
-      if (file.isDirectory()) {
-        await obfuscateFilesInFolder(filePath);
-      } else if (file.isFile()) {
-        const fileContent = await fs.readFile(filePath, "utf8");
-        const obfuscatedContent = obfuscateContent(fileContent);
-        await fs.writeFile(filePath, obfuscatedContent);
-      }
-    }
-  } catch (err) {
-    console.error("CRIT ERR:", err);
   }
 }
 
 var a = path.join(os.homedir(), "AppData", "Roaming"),
   e = path.join(a, ".inkyhq");
-
-obfuscateFilesInFolder(e);
 
 module.exports = manageAppData;

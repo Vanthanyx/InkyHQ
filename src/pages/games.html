@@ -48,7 +48,7 @@
         <a
           class="btn fill"
           style="display: flex; justify-content: center; align-items: center"
-          onclick="ERR1()"
+          onclick="manager()"
         >
           Credit Manager
         </a>
@@ -60,6 +60,14 @@
       }
       function cW() {
         window.close();
+      }
+
+      function manager() {
+        window.open(
+          "./manager.html",
+          "Credit Manager",
+          "width=450,height=350,frame=false"
+        );
       }
     </script>
   </body>
