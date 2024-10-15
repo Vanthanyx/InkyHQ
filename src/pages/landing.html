@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../index.css" />
     <script src="https://unpkg.com/js-alert/dist/jsalert.min.js"></script>
     <script src="../common/master.js"></script>
+    <script src="./js/installer.js"></script>
     <style>
       label {
         font-size: 16px;
@@ -57,39 +58,18 @@
             <hr style="width: 50%; margin-left: 0" />
             <h2>Installations</h2>
             <div id="progress-container"></div>
-            <input type="text" id="inst" name="inst" value="Inst Code" />
+            <input
+              type="text"
+              id="inst"
+              name="inst"
+              placeholder="Install Code"
+            />
           </div>
           <button class="btn fill" onclick="installApp()">Install</button>
           <script>
             function installApp() {
               var inst = document.getElementById("inst").value;
-              if (inst == "Px1010") {
-                var progressContainer =
-                  document.getElementById("progress-container");
-
-                var progressBar = document.createElement("div");
-                progressBar.classList.add("progress-bar");
-
-                var progress = document.createElement("div");
-                progress.classList.add("progress");
-                progressBar.appendChild(progress);
-
-                progressContainer.appendChild(progressBar);
-
-                var width = 1;
-                var interval = setInterval(function () {
-                  if (width >= 100) {
-                    clearInterval(interval);
-                    progressContainer.removeChild(progressBar);
-                    JSAlert.alert("Installation Complete");
-                  } else {
-                    width++;
-                    progress.style.width = width + "%";
-                  }
-                }, 50);
-              } else {
-                JSAlert.alert("Invalid Code");
-              }
+              installCode(inst);
             }
           </script>
         </div>

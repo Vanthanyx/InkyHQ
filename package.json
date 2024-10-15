@@ -1,7 +1,7 @@
 {
   "name": "inkyhq",
   "productName": "inkyhq",
-  "version": "0.8.22+1",
+  "version": "0.10.12",
   "description": "Inky HQ Desktop App",
   "main": "src/index.js",
   "scripts": {
@@ -30,6 +30,8 @@
   "dependencies": {
     "electron-squirrel-startup": "^1.0.1",
     "inkyhq": "file:",
-    "js-alert": "^2.0.0"
+    "js-alert": "^2.0.0",
+    "js-yaml": "^4.1.0",
+    "node-fetch": "^3.3.2"
   }
 }

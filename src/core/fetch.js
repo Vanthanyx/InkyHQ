@@ -1,86 +1,78 @@
-const webdbUrl =
-  "https://raw.githubusercontent.com/Vanthanyx/InkyHQ/refs/heads/master/db/web.js";
-const currentVersion = "0.8.22";
+const webdbUrl = "https://inkysmp.com/data/WEB.yml";
+const yaml = require("js-yaml");
+const currentVersion = localStorage.getItem("CURRENT_VERSION");
+
+/* Error Codes:
+ * 0x0A: Unable to fetch data
+ * 0x01: Web Database Disabled
+ * 0x02: Servers Are Not Live
+ * 0x03: New version available
+ * 0x04: Failed to parse YAML
+ * 0x0E: Application Disabled
+ * 0x0N: Failed to execute fetch
+ * 0x0C: Error setting accent color
+ */
 
 try {
   fetch(webdbUrl)
     .then((response) => {
       if (!response.ok) {
-        throw new Error("FATAL ERROR 0x03: Unable to fetch the data.");
+        alert("FATAL ERROR 0x0A: Unable to fetch data.");
+        throw new Error("FATAL ERROR 0x0A: Unable to fetch data.");
       }
       return response.text();
     })
     .then((data) => {
       try {
-        const webDbMatch = data.match(/var\s+WEB_DB_RUN\s*=\s*(true|false);/);
-        if (!webDbMatch) {
-          throw new Error("FATAL ERROR 0x02: WEB_DB_RUN not found.");
-        }
-        sessionStorage.setItem("WEB_DB_RUN", webDbMatch[1]);
+        // Parse the YAML file
+        const webData = yaml.load(data);
 
-        const versionMatch = data.match(
-          /var\s+LATEST_VERSION\s*=\s*"([^"]+)";/
-        );
-        const updaterUrlMatch = data.match(
-          /var\s+UPDATER_URL\s*=\s*"([^"]+)";/
-        );
+        // Store all values in sessionStorage or localStorage
+        sessionStorage.setItem("WEB_DB_RUN", webData.WEB_DB_RUN);
+        sessionStorage.setItem("LATEST_VERSION", webData.LATEST_VERSION);
+        sessionStorage.setItem("UPDATER_URL", webData.UPDATER_URL);
+        sessionStorage.setItem("NEWS", JSON.stringify(webData.NEWS));
 
-        if (!versionMatch || !updaterUrlMatch) {
-          throw new Error(
-            "FATAL ERROR 0x04: LATEST_VERSION or UPDATER_URL not found."
+        localStorage.setItem("APP_LIVE", webData.APP_LIVE);
+
+        // Handle WEB_DB_RUN
+        if (!webData.WEB_DB_RUN) {
+          alert(
+            "FATAL ERROR 0x01\nApplication Disabled\nWeb Database Disabled"
           );
-        }
-
-        sessionStorage.setItem("LATEST_VERSION", versionMatch[1]);
-        sessionStorage.setItem("UPDATER_URL", updaterUrlMatch[1]);
-
-        const appLiveMatch = data.match(/var\s+APP_LIVE\s*=\s*(true|false);/);
-        const newsMatch = data.match(/var\s+NEWS\s*=\s*\[([^\]]+)\];/);
-
-        if (!newsMatch) {
-          alert("FATAL ERROR 0x0N\nNews Disabled");
-          throw new Error("NEWS variable not found.");
-        } else {
-          const newsArray = newsMatch[1]
-            .split(",")
-            .map((item) => item.trim().replace(/(^"|"$)/g, "")) // Remove surrounding quotes
-            .filter((item) => item.length > 0); // Filter out empty entries
-          sessionStorage.setItem("NEWS", JSON.stringify(newsArray));
-        }
-
-        if (appLiveMatch) {
-          const APP_LIVE = appLiveMatch[1] === "true"; // Convert string to boolean
-          localStorage.setItem("APP_LIVE", APP_LIVE); // Store as a boolean in localStorage
-          console.log("APP_LIVE:", APP_LIVE);
-        } else {
-          alert("FATAL ERROR 0x0E\nApplication Disabled");
-          throw new Error("APP_LIVE variable not found.");
-        }
-
-        const WEB_DB_RUN = webDbMatch[1] === "true";
-        if (!WEB_DB_RUN) {
-          alert("FATAL ERROR 0x01\nApplication Disabled");
           throw new Error("WEB_DB_RUN is false.");
         }
 
-        if (compareVersions(versionMatch[1], currentVersion)) {
+        // Handle APP_LIVE
+        if (!webData.APP_LIVE) {
+          alert("FATAL ERROR 0x02\nApplication Disabled\nServers Are Not Live");
+          throw new Error("APP_LIVE is false.");
+        }
+
+        // Check for version updates
+        if (compareVersions(webData.LATEST_VERSION, currentVersion)) {
           alert(
-            `A new version (${versionMatch[1]}) is available. Please update.`
+            `ERROR 0x03\nA new version (${webData.LATEST_VERSION}) is available. Please update.`
           );
-          window.location.href = updaterUrlMatch[1];
+          const updaterUrl = webData.UPDATER_URL;
+          if (updaterUrl) {
+            window.open(updaterUrl, "_blank");
+          } else {
+            JSAlert.alert("Unable to open Discord");
+          }
         }
       } catch (error) {
-        console.error(error.message);
-        alert(error.message);
+        console.error("FATAL ERROR 0x04: ", error.message);
+        alert("FATAL ERROR 0x04: ", error.message);
       }
     })
     .catch((error) => {
-      console.error("FATAL ERROR 0x03: Application Disabled - ", error);
-      alert("FATAL ERROR 0x03\nApplication Disabled\n" + error);
+      console.error("FATAL ERROR 0x0E: Application Disabled - ", error);
+      alert("FATAL ERROR 0x0E\nApplication Disabled\n" + error);
     });
 } catch (error) {
-  console.error("FATAL ERROR 0x03: Failed to execute fetch - ", error);
-  alert("FATAL ERROR 0x03\nApplication Disabled\n" + error);
+  console.error("FATAL ERROR 0x0N: Failed to execute fetch - ", error);
+  alert("FATAL ERROR 0x0N\nApplication Disabled\n" + error);
 }
 
 // Function to compare versions
@@ -97,7 +89,6 @@ function compareVersions(latest, current) {
 
 function setRandomAccentColor() {
   try {
-    // Define the array of colors
     const colors = [
       "var(--red)",
       "var(--crimson)",
@@ -116,24 +107,18 @@ function setRandomAccentColor() {
       "var(--magenta)",
     ];
 
-    // Check if a color is already stored in sessionStorage
     const storedColor = sessionStorage.getItem("ACC_COLOR");
 
     if (storedColor) {
-      // Use the stored color
       document.documentElement.style.setProperty("--acc", storedColor);
     } else {
-      // Select a random color
-      const randomColor = "var(--blue)";
-
-      // Apply the random color to --acc
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
       document.documentElement.style.setProperty("--acc", randomColor);
-      // Store the selected color in sessionStorage
       sessionStorage.setItem("ACC_COLOR", randomColor);
     }
   } catch (error) {
-    console.error("FATAL ERROR 0x05: Error setting accent color - ", error);
-    alert("FATAL ERROR 0x05\nFailed to set accent color.");
+    console.error("FATAL ERROR 0x0C: Error setting accent color - ", error);
+    alert("FATAL ERROR 0x0C\nFailed to set accent color.");
   }
 }
 

@@ -14,40 +14,37 @@
     </script>
   </head>
   <body>
-    <div class="wrapper">
-      <div class="titlebar">
-        <img src="./assets/settings.png" class="menu-icon" onclick="oS()" />
-        <img src="./assets/exit.png" class="menu-icon" onclick="cW()" />
+    <div class="titlebar">
+      <img src="./assets/settings.png" class="menu-icon" onclick="oS()" />
+      <img src="./assets/exit.png" class="menu-icon" onclick="cW()" />
+    </div>
+    <div class="container">
+      <div class="text-container">
+        <h1>Inky HQ</h1>
+        <hr style="width: 50%; margin-left: 0" />
+        <p style="width: 50%; font-size: 12px">
+          The Inky HQ app is your essential tool for staying engaged with the
+          Inky SMP community. Whether you're a seasoned player or new to the
+          server, the app provides seamless access to all the information you
+          need. Stay updated with the latest server events, news, and
+          announcements in real time. You can easily check server status, access
+          important resources, and manage your gameplay preferences directly
+          from the app. Designed for convenience and efficiency, Inky HQ ensures
+          you have everything at your fingertips to enhance your experience on
+          Inky SMP. Keep an eye out for the stable release, coming soon!
+        </p>
       </div>
-      <div class="container">
-        <div class="text-container">
-          <h1>Inky HQ</h1>
-          <hr style="width: 50%; margin-left: 0" />
-          <p style="width: 50%; font-size: 12px">
-            The Inky HQ app is your essential tool for staying engaged with the
-            Inky SMP community. Whether you're a seasoned player or new to the
-            server, the app provides seamless access to all the information you
-            need. Stay updated with the latest server events, news, and
-            announcements in real time. You can easily check server status,
-            access important resources, and manage your gameplay preferences
-            directly from the app. Designed for convenience and efficiency, Inky
-            HQ ensures you have everything at your fingertips to enhance your
-            experience on Inky SMP. Keep an eye out for the stable release,
-            coming soon!
-          </p>
-        </div>
-        <div class="button-container">
-          <a href="pages/landing.html" class="btn fill"
-            >Announcements and Installations</a
-          >
-          <a href="pages/games.html" class="btn fill">Earn Server Credits!</a>
-          <br />
-          <hr style="width: 100%" />
-          <br />
-          <a style="color: white" class="btn fill" onclick="window.close()"
-            >Exit App</a
-          >
-        </div>
+      <div class="button-container">
+        <a href="pages/landing.html" class="btn fill"
+          >Announcements and Installations</a
+        >
+        <a href="pages/games.html" class="btn fill">Earn Server Credits!</a>
+        <br />
+        <hr style="width: 100%" />
+        <br />
+        <a style="color: white" class="btn fill" onclick="window.close()"
+          >Exit App</a
+        >
       </div>
     </div>
     <script>
@@ -66,5 +63,25 @@
         window.close();
       }
     </script>
+    <style>
+      body::before {
+        --line: color-mix(in lch, var(--acc) 25%, transparent);
+        --size: 60px;
+        content: "";
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+        background: linear-gradient(
+              90deg,
+              var(--line) 2px,
+              transparent 2px var(--size)
+            )
+            0 -5vmin / var(--size) var(--size),
+          linear-gradient(var(--line) 2px, transparent 2px var(--size)) 0 -5vmin /
+            var(--size) var(--size);
+        mask: linear-gradient(-15deg, transparent 45%, var(--acc));
+        top: 0;
+      }
+    </style>
   </body>
 </html>

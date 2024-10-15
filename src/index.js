@@ -1,5 +1,6 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("node:path");
+const { ipcMain } = require("electron");
 
 if (require("electron-squirrel-startup")) {
   app.quit();
@@ -38,4 +39,8 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
   }
+});
+
+ipcMain.handle("getAppVersion", () => {
+  return app.getVersion();
 });

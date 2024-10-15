@@ -79,8 +79,8 @@ function calculateResult(result1, result2, result3, result4) {
     (result1 === result3 && result1 === result4) ||
     (result2 === result3 && result2 === result4)
   ) {
-    credits += 40; // 3 symbols match, win 30 credits
-    statusElement.textContent = `+40¤`;
+    credits += 60; // 3 symbols match, win 30 credits
+    statusElement.textContent = `+60¤`;
     statusElement.style.color = "gold";
   } else {
     statusElement.textContent = `-20¤`;

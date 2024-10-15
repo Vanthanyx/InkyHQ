@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/js-alert/dist/jsalert.min.js"></script>
     <title>Memory Game</title>
     <style>
       * {
@@ -140,7 +141,15 @@
       // End the game when all pairs are matched
       function endGame(result) {
         if (result === "win") {
-          statusElement.textContent = "You Win! All pairs matched!";
+          const USER_CREDITS = localStorage.getItem("USER_CREDITS");
+          if (USER_CREDITS) {
+            localStorage.setItem("USER_CREDITS", parseInt(USER_CREDITS) + 60);
+          } else {
+            localStorage.setItem("USER_CREDITS", 60);
+          }
+          JSAlert.alert("Congratulations! You won!").then(() => {
+            location.reload();
+          });
         }
       }
 

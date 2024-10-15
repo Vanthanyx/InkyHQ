@@ -38,13 +38,6 @@ body {
   background-color: var(--base);
 }
 
-.wrapper {
-  width: 950px;
-  height: 550px;
-  overflow: hidden;
-  background-color: var(--base);
-}
-
 .container {
   display: flex;
   justify-content: space-between;
@@ -119,6 +112,7 @@ p {
   transition: 0.25s;
   font-size: 14px;
   cursor: pointer;
+  z-index: 100;
 }
 
 .btn:hover,

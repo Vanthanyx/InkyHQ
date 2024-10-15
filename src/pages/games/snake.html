@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Snake Game</title>
+    <script src="https://unpkg.com/js-alert/dist/jsalert.min.js"></script>
     <style>
       * {
         margin: 0;
@@ -81,11 +82,11 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         for (let i = 0; i < snake.length; i++) {
-          ctx.fillStyle = i === 0 ? "#00FF00" : "#FFFFFF";
+          ctx.fillStyle = i === 0 ? "#7DD181" : "#FFFFFF";
           ctx.fillRect(snake[i].x, snake[i].y, box, box);
         }
 
-        ctx.fillStyle = "red";
+        ctx.fillStyle = "#AFCBFF";
         ctx.fillRect(food.x, food.y, box, box);
 
         let snakeX = snake[0].x;
@@ -126,7 +127,7 @@
 
         ctx.fillStyle = "white";
         ctx.font = "45px Arial";
-        ctx.fillText(score, 2 * box, 1.5 * box);
+        ctx.fillText(score, 0.5 * box, 2 * box);
       }
 
       function collision(head, array) {
@@ -141,9 +142,19 @@
       function endGame(result) {
         clearInterval(gameInterval);
         if (result === "win") {
-          statusElement.textContent = "You win! Score: " + score;
+          const USER_CREDITS = localStorage.getItem("USER_CREDITS");
+          if (USER_CREDITS) {
+            localStorage.setItem("USER_CREDITS", parseInt(USER_CREDITS) + 40);
+          } else {
+            localStorage.setItem("USER_CREDITS", 40);
+          }
+          JSAlert.alert("Congratulations! You won!").then(() => {
+            location.reload();
+          });
         } else {
-          statusElement.textContent = "Game Over. You lost. Score: " + score;
+          JSAlert.alert("Game Over! Your score was: " + score).then(() => {
+            location.reload();
+          });
         }
       }
 

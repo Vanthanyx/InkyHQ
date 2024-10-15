@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/js-alert/dist/jsalert.min.js"></script>
     <title>Single Player Pong</title>
     <style>
       * {
@@ -158,9 +159,19 @@
         isGameOver = true;
 
         if (result === "win") {
-          statusElement.textContent = "You Win! Final Score: " + player.score;
+          const USER_CREDITS = localStorage.getItem("USER_CREDITS");
+          if (USER_CREDITS) {
+            localStorage.setItem("USER_CREDITS", parseInt(USER_CREDITS) + 20);
+          } else {
+            localStorage.setItem("USER_CREDITS", 20);
+          }
+          JSAlert.alert("Congratulations! You won!").then(() => {
+            location.reload();
+          });
         } else {
-          statusElement.textContent = "Game Over. Final Score: " + player.score;
+          JSAlert.alert("Game Over! Try Again").then(() => {
+            location.reload();
+          });
         }
       }
 

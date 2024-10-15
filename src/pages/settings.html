@@ -17,7 +17,7 @@
       #version-btn {
         position: absolute;
         bottom: 10px;
-        right: 65px;
+        right: 70px;
         font-size: 6px;
         color: white;
       }
@@ -111,6 +111,9 @@
           document.getElementById("login-btn").innerText =
             "Logged in as " + username;
         }
+
+        const currentVersion = require("../../package.json").version;
+        document.getElementById("version").innerText = "v" + currentVersion;
       });
 
       function home() {
@@ -151,9 +154,11 @@
       }
 
       function cfu() {
-        JSAlert.alert("Checking for updates...").then(() => {
-          JSAlert.alert("No updates available.");
-        });
+        JSAlert.loader("Checking for updates...")
+          .dismissIn(3000)
+          .then(() => {
+            JSAlert.alert("No updates available.");
+          });
       }
     </script>
   </body>
