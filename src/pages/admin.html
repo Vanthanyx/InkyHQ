@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/js-alert/dist/jsalert.min.js"></script>
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="../index.css" />
+  </head>
+  <body>
+    <div class="titlebar">
+      <img src="../assets/home.png" class="menu-icon" onclick="home()" />
+      <img src="../assets/exit.png" class="menu-icon" onclick="cW()" />
+    </div>
+    <div class="container">
+      <h1>Admin Dashboard [BETA]</h1>
+      <button class="btn fill" onclick="setCredits()">Set Credits</button>
+      <button class="btn fill" onclick="resetApp()">Reset App</button>
+      <button class="btn fill" onclick="goHome()">Go Home</button>
+    </div>
+    <script src="../common/master.js"></script>
+    <script>
+      setCredits = () => {
+        JSAlert.prompt("Set Credits Amount:", "1000").then(function (result) {
+          // Check if successful
+          if (!result) return;
+
+          // User entered their name
+          localStorage.setItem("USER_CREDITS", result);
+          JSAlert.alert("Set Credits To <code>" + result + "</code>");
+        });
+      };
+      resetApp = () => {
+        document.dispatchEvent(
+          new KeyboardEvent("keydown", { key: "r", altKey: true })
+        );
+      };
+      goHome = () => {
+        window.location.href = "../index.html";
+      };
+    </script>
+    <style>
+      body::before {
+        --line: color-mix(in lch, var(--acc) 33%, transparent);
+        --size: 10px;
+        content: "";
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+        background: linear-gradient(
+              90deg,
+              var(--line) 2px,
+              transparent 2px var(--size)
+            )
+            0 -5vmin / var(--size) var(--size),
+          linear-gradient(var(--line) 2px, transparent 2px var(--size)) 0 -5vmin /
+            var(--size) var(--size);
+        mask: linear-gradient(-135deg, transparent 66%, var(--acc));
+        top: 0;
+      }
+    </style>
+  </body>
+</html>

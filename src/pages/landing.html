@@ -7,40 +7,7 @@
     <script src="https://unpkg.com/js-alert/dist/jsalert.min.js"></script>
     <script src="../common/master.js"></script>
     <script src="./js/installer.js"></script>
-    <style>
-      label {
-        font-size: 16px;
-        color: white;
-      }
-      input {
-        height: 10%;
-        padding: 10px;
-        margin: 5px 0;
-        border: 1px solid var(--acc);
-        border-radius: 10px;
-        background-color: var(--base);
-        color: white;
-      }
-      input:focus {
-        outline: white;
-        background-color: var(--acc);
-      }
-      li {
-        color: var(--acc);
-      }
-      .progress-bar {
-        width: 100%;
-        background-color: var(--dark_base);
-        margin-top: 10px;
-        border-radius: 10px;
-      }
-      .progress {
-        width: 1%;
-        height: 30px;
-        background-color: var(--acc);
-        border-radius: 10px;
-      }
-    </style>
+    <link rel="stylesheet" href="./css/landing.css" />
   </head>
   <body>
     <div class="wrapper">
@@ -66,12 +33,6 @@
             />
           </div>
           <button class="btn fill" onclick="installApp()">Install</button>
-          <script>
-            function installApp() {
-              var inst = document.getElementById("inst").value;
-              installCode(inst);
-            }
-          </script>
         </div>
       </div>
     </div>
@@ -81,6 +42,11 @@
       }
       function cW() {
         window.close();
+      }
+
+      function installApp() {
+        var inst = document.getElementById("inst").value;
+        installCode(inst);
       }
 
       document.addEventListener("DOMContentLoaded", function () {

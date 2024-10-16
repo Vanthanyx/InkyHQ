@@ -4,24 +4,9 @@
     <meta charset="UTF-8" />
     <title>Inky HQ 🌐</title>
     <link rel="stylesheet" href="../index.css" />
+    <link rel="stylesheet" href="./css/settings.css" />
     <script src="https://unpkg.com/js-alert/dist/jsalert.min.js"></script>
     <script src="../common/master.js"></script>
-    <style>
-      #version {
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
-        font-size: 12px;
-        color: white;
-      }
-      #version-btn {
-        position: absolute;
-        bottom: 10px;
-        right: 70px;
-        font-size: 6px;
-        color: white;
-      }
-    </style>
   </head>
   <body>
     <div class="wrapper">
@@ -51,7 +36,7 @@
           <label for="accent-color" class="setting-label">Accent Color</label>
           <hr style="width: 100%" />
           <select id="accent-color" class="btn fill">
-            <option value="default">Default (Blue)</option>
+            <option value="blue">Default (Blue)</option>
             <option value="red">Red</option>
             <option value="crimson">Crimson</option>
             <option value="orange">Orange</option>
@@ -61,7 +46,6 @@
             <option value="green">Green</option>
             <option value="teal">Teal</option>
             <option value="cyan">Cyan</option>
-            <option value="blue">Blue</option>
             <option value="indigo">Indigo</option>
             <option value="violet">Violet</option>
             <option value="purple">Purple</option>
@@ -92,74 +76,6 @@
         </div>
       </div>
     </div>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const accentColor = localStorage.getItem("ACC_COLOR");
-        const notificationSettings = localStorage.getItem("NOTIFS");
-        const username = localStorage.getItem("USERNAME");
-
-        if (accentColor) {
-          document.getElementById("accent-color").value = accentColor;
-        }
-
-        if (notificationSettings) {
-          document.getElementById("notification-settings").value =
-            notificationSettings;
-        }
-
-        if (username) {
-          document.getElementById("login-btn").innerText =
-            "Logged in as " + username;
-        }
-
-        const currentVersion = require("../../package.json").version;
-        document.getElementById("version").innerText = "v" + currentVersion;
-      });
-
-      function home() {
-        window.location.href = "../index.html";
-      }
-      function cW() {
-        window.close();
-      }
-
-      function login() {
-        window.open(
-          "./login.html",
-          "Login",
-          "width=450,height=350,frame=false"
-        );
-        /*JSAlert.prompt("Enter your username").then((username) => {
-          if (username) {
-            localStorage.setItem("USERNAME", username);
-            window.location.reload();
-          } else {
-            JSAlert.alert("Login Failed...");
-          }
-        });*/
-      }
-
-      function save() {
-        const accentColor = document.getElementById("accent-color").value;
-        const notificationSettings = document.getElementById(
-          "notification-settings"
-        ).value;
-
-        localStorage.setItem("ACC_COLOR", accentColor);
-        localStorage.setItem("NOTIFS", notificationSettings);
-
-        JSAlert.alert("Settings Saved!").then(() => {
-          window.location.reload();
-        });
-      }
-
-      function cfu() {
-        JSAlert.loader("Checking for updates...")
-          .dismissIn(3000)
-          .then(() => {
-            JSAlert.alert("No updates available.");
-          });
-      }
-    </script>
+    <script src="./js/settings.js"></script>
   </body>
 </html>

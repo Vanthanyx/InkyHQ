@@ -1,5 +1,4 @@
 const storedColor = localStorage.getItem("ACC_COLOR");
-
 if (storedColor) {
   document.documentElement.style.setProperty(
     "--acc",
@@ -14,11 +13,12 @@ function loadScript(src) {
   document.head.appendChild(script);
 }
 
-const webDbRun = sessionStorage.getItem("WEB_DB_RUN");
-
-if (!webDbRun) {
-  loadScript("./core/fetch.js");
-}
+setTimeout(() => {
+  const webdbrun = sessionStorage.getItem("WEB_DB_RUN");
+  if (!webdbrun) {
+    loadScript("./core/fetch.js");
+  }
+}, 3000);
 
 document.addEventListener("keydown", function (event) {
   if (event.altKey && event.key.toLowerCase() === "r") {
@@ -33,11 +33,17 @@ document.addEventListener("keydown", function (event) {
       });
     });
   } else if (event.altKey && event.key.toLowerCase() === "a") {
-    JSAlert.confirm("Are you sure you want enable admin mode?").then(function (
-      result
-    ) {
+    JSAlert.confirm("GOTO Admin Dash").then(function (result) {
       if (!result) return;
-      JSAlert.alert("Admin mode enabled.");
+      window.location.href = "./pages/admin.html";
     });
+  } else if (event.altKey && event.key.toLowerCase() === "h") {
+    const appDataPath = path.join(
+      os.homedir(),
+      "AppData",
+      "Roaming",
+      ".inkyhq"
+    );
+    shell.openPath(appDataPath);
   }
 });
