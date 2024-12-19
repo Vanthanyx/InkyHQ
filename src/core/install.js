@@ -37,7 +37,7 @@ async function manageAppData() {
     "CONFIG",
     "DOWNLOADS",
     "LOGS",
-    "OPTIONALS",
+    "MODS",
   ];
   for (const folder of folders) {
     const folderPath = path.join(e, folder);

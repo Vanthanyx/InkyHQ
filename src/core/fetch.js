@@ -34,6 +34,8 @@ if (!webdbrun) {
           sessionStorage.setItem("LATEST_VERSION", webData.LATEST_VERSION);
           sessionStorage.setItem("UPDATER_URL", webData.UPDATER_URL);
           sessionStorage.setItem("NEWS", JSON.stringify(webData.NEWS));
+          sessionStorage.setItem("MODS", JSON.stringify(webData.MODS));
+          sessionStorage.setItem("MODS_URL", JSON.stringify(webData.MODS_URL));
 
           localStorage.setItem("APP_LIVE", webData.APP_LIVE);
 

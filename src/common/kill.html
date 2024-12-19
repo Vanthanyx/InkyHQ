@@ -28,11 +28,6 @@
       </div>
     </div>
     <script>
-      const APP_LIVE = localStorage.getItem("APP_LIVE");
-      if (APP_LIVE) {
-        window.location.href = "../index.html";
-      }
-
       function openDiscord() {
         const url = sessionStorage.getItem("UPDATER_URL");
         if (url) {

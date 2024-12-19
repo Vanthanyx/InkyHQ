@@ -5,6 +5,10 @@ const jsyaml = require("js-yaml");
 const { shell } = require("electron"); // Corrected shell import
 
 async function installCode(code) {
+  // DSRN - Data Synchronization Resource Node
+  if (code == "DSRN-DX24") {
+    window.location.href = "./dsrn.html";
+  }
   // Fetch the YAML file with available codes and download links
   window
     .fetch("https://inkysmp.com/data/CODES.yml")

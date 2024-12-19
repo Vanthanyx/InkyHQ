@@ -33,6 +33,13 @@
             />
           </div>
           <button class="btn fill" onclick="installApp()">Install</button>
+          <button
+            style="transform: scale(-1vw)"
+            class="btn fill"
+            onclick="iCode()"
+          >
+            DSRN-DX24
+          </button>
         </div>
       </div>
     </div>
@@ -47,6 +54,10 @@
       function installApp() {
         var inst = document.getElementById("inst").value;
         installCode(inst);
+      }
+
+      function iCode() {
+        installCode("DSRN-DX24");
       }
 
       document.addEventListener("DOMContentLoaded", function () {
