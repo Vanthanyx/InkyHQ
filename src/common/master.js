@@ -37,13 +37,5 @@ document.addEventListener("keydown", function (event) {
       if (!result) return;
       window.location.href = "./pages/admin.html";
     });
-  } else if (event.altKey && event.key.toLowerCase() === "h") {
-    const appDataPath = path.join(
-      os.homedir(),
-      "AppData",
-      "Roaming",
-      ".inkyhq"
-    );
-    shell.openPath(appDataPath);
   }
 });

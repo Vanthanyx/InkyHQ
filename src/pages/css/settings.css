@@ -21,7 +21,8 @@
 }
 
 #accent-color,
-#notification-settings {
+#notification-settings,
+#launcher {
   background-color: var(--base);
   color: white;
   padding: 10px;

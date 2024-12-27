@@ -28,6 +28,12 @@
             enjoyable. Take control of your Inky HQ experience and tailor it to
             your needs. Happy customizing!
           </p>
+          <button
+            class="btn fill"
+            onclick="window.location.href='./integration.html'"
+          >
+            Integration
+          </button>
           <button class="btn fill" id="login-btn" onclick="login()">
             Log In
           </button>
@@ -53,7 +59,6 @@
             <option value="magenta">Magenta</option>
           </select>
           <br />
-          <br />
           <label for="notification-settings" class="setting-label"
             >Notification Settings</label
           >
@@ -63,8 +68,16 @@
             <option value="important">Important</option>
             <option value="off">Off</option>
           </select>
-
           <br />
+
+          <label for="notification-settings" class="setting-label"
+            >Built In Launcher</label
+          >
+          <hr style="width: 100%" />
+          <select id="launcher" class="btn fill">
+            <option value="disabled">Default (Off)</option>
+            <option value="enabled">Enabled</option>
+          </select>
           <br />
 
           <button class="btn fill" style="align-self: center" onclick="save()">

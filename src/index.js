@@ -6,6 +6,8 @@ if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
+let mainWindow;
+
 const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 950,
@@ -32,6 +34,10 @@ app.whenReady().then(() => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
     }
+  });
+
+  ipcMain.on("minimize-window", () => {
+    mainWindow.minimize();
   });
 });
 

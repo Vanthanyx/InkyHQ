@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Inky HQ 🌐</title>
+    <link rel="stylesheet" href="../index.css" />
+    <script src="https://unpkg.com/js-alert/dist/jsalert.min.js"></script>
+    <style>
+      .base {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: var(--dark_base);
+        border: var(--acc) 1px solid;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 40%;
+        width: 100vw;
+      }
+      .setup {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: var(--dark_base);
+        border: var(--green) 1px solid;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 50%;
+        width: 100vw;
+      }
+      input {
+        height: auto;
+        width: 50%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid var(--acc);
+        border-radius: 10px;
+        background-color: var(--base);
+        color: white;
+        font-size: 12px;
+        box-sizing: border-box;
+      }
+      .integration-status {
+        background-color: var(--dark_base);
+        height: 4vw;
+        width: 4vw;
+        border: 1px solid white;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .pulser {
+        height: 60%;
+        width: 60%;
+        border-radius: 50%;
+        background-color: var(--white);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(0.95);
+          box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+        }
+        70% {
+          transform: scale(1);
+          box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+        }
+        100% {
+          transform: scale(0.95);
+          box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="titlebar">
+      <img src="../assets/home.png" class="menu-icon" onclick="home()" />
+      <img src="../assets/exit.png" class="menu-icon" onclick="cW()" />
+    </div>
+    <section id="base" class="base">
+      <label for="lPath">Enter your launcher executable path:</label>
+      <input
+        type="text"
+        id="lPath"
+        name="lPath"
+        placeholder="C:\Program Files\*****.exe"
+      />
+      <button class="btn fill" onclick="verifyPath()">Save Path</button>
+    </section>
+    <section id="setup" class="setup">
+      <h2 style="color: var(--green)">Launcher Set</h2>
+      <span id="lPath"></span>
+      <hr style="width: 60vw" />
+      <button class="btn fill" id="launchBtn" onclick="launch()">Launch</button>
+      <div
+        style="display: flex; align-items: center; gap: 10px; margin-top: 10px"
+      >
+        <div id="status" style="color: var(--red)">Disconnected</div>
+        <div class="integration-status">
+          <div class="pulser" id="pulser"></div>
+        </div>
+      </div>
+      <span id="timer">00:00</span>
+    </section>
+
+    <script src="../pages/js/launcher.js"></script>
+    <script>
+      function updateStatus(connected) {
+        const statusElement = document.getElementById("status");
+        const launchBtn = document.getElementById("launchBtn");
+        const pulser = document.getElementById("pulser");
+        const timer = document.getElementById("timer");
+        if (connected) {
+          statusElement.textContent = "Connected";
+          statusElement.style.color = "var(--green)";
+          pulser.style.backgroundColor = "var(--green)";
+          launchBtn.style.opacity = 0.2;
+          launchBtn.style.color = "var(--white)";
+          launchBtn.style.cursor = "not-allowed";
+          launchBtn.disabled = true;
+          timer.style.display = "block";
+          eTimer(1);
+        } else {
+          statusElement.textContent = "Disconnected";
+          statusElement.style.color = "var(--red)";
+          pulser.style.backgroundColor = "var(--red)";
+          launchBtn.style.opacity = 1;
+          launchBtn.style.color = "var(--acc)";
+          launchBtn.style.cursor = "pointer";
+          launchBtn.disabled = false;
+          timer.style.display = "none";
+          eTimer(0);
+        }
+      }
+      updateStatus(false);
+    </script>
+  </body>
+</html>

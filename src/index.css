@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap");
 
 :root {
-  --base: #1d1d21; /* Base color */
+  --base: #18181a; /* Base color */
   --dark_base: #101014; /* Dark Base color */
   --acc: var(--blue); /* Accent color */
 
@@ -21,6 +21,10 @@
   --purple: #ab47bc; /* Soft Purple */
   --pink: #ec407a; /* Soft Pink */
   --magenta: #ff66ff; /* Soft Magenta */
+
+  /* Developer Colors */
+  --white: #ffffff; /* Soft White */
+  --NYX: #6f00ff; /* Soft Black Red */
 }
 
 * {

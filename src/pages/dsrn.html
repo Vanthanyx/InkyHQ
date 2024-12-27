@@ -5,330 +5,38 @@
     <title>Inky HQ 🌐</title>
     <link rel="stylesheet" href="../index.css" />
     <link rel="stylesheet" href="./css/settings.css" />
+    <link rel="stylesheet" href="./css/dsrn.css" />
     <script src="https://unpkg.com/js-alert/dist/jsalert.min.js"></script>
     <script src="../common/master.js"></script>
   </head>
   <body>
-    <style>
-      .side-container {
-        width: 45%;
-        height: 100%;
-        padding: 10px;
-        border-radius: 10px;
-        background-color: var(--dark-base);
-        color: white;
-        border: white 1px solid;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        overflow-y: auto;
-        display: flex;
-        flex-direction: column;
-      }
-      .side-container h2 {
-        margin: 0;
-        padding: 10px;
-        font-size: 20px;
-        font-weight: 500;
-        border-bottom: 1px solid #ddd;
-        flex-shrink: 0;
-      }
-      .side-container ul {
-        flex-grow: 1;
-      }
-      #list {
-        padding: 0.5vw;
-        font-size: 12px !important;
-      }
-      #list ul {
-        list-style-type: none;
-        padding: 0;
-      }
-      #list li {
-        margin: 5px 0;
-      }
-
-      .open {
-        position: fixed;
-        bottom: 10vw;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 10%;
-        height: 5%;
-        padding: 10px;
-        background-color: var(--dark-base);
-        color: white;
-        font-size: 10px;
-        cursor: pointer;
-      }
-      .sync {
-        position: fixed;
-        bottom: 4vw;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 25%;
-        padding: 10px;
-        background-color: var(--dark-base);
-        color: white;
-        font-size: 20px;
-        cursor: pointer;
-      }
-    </style>
     <div class="wrapper">
       <div class="titlebar">
-        <p style="color: white; transform: translateY(1vw)">
-          DSRN - Data Synchronization Resource Node&nbsp;
-        </p>
         <img src="../assets/home.png" class="menu-icon" onclick="home()" />
         <img src="../assets/exit.png" class="menu-icon" onclick="cW()" />
       </div>
       <div class="container">
         <div class="side-container" id="list">
           <h2>Local</h2>
-          <!-- Content for Local -->
           <ul id="local-list"></ul>
         </div>
         <div class="side-container" id="list">
           <h2>Retrieved</h2>
-          <!-- Content for Retrieved -->
           <ul id="retrieved"></ul>
-          <!-- Changed from <span> to <ul> -->
         </div>
       </div>
     </div>
-
-    <button class="btn fill open" onclick="openFolder()">Open Folder</button>
+    <button class="btn fill opt" onclick="toggleMenu()">Options</button>
+    <div class="hover-menu">
+      <button class="btn fill" onclick="removeExtraItems()">
+        Remove Extra
+      </button>
+      <button class="btn fill" onclick="window.location.reload()">
+        Refresh
+      </button>
+      <button class="btn fill" onclick="openFolder()">Open Folder</button>
+    </div>
     <button class="btn fill sync" onclick="syncFiles()">Sync</button>
-
-    <script>
-      const fs = require("fs");
-      const path = require("path");
-      const os = require("os");
-
-      document.addEventListener("DOMContentLoaded", function () {
-        // Call the functions after the DOM is ready
-        getLocalMods();
-        retrievedMods();
-        compareLists();
-      });
-
-      function openFolder() {
-        const modsPath = path.join(
-          os.homedir(),
-          "AppData",
-          "Roaming",
-          ".inkyhq",
-          "MODS"
-        );
-        require("child_process").exec(`start ${modsPath}`);
-      }
-
-      let localModsArray = []; // Declare this globally to use in compareLists
-
-      function getLocalMods() {
-        // Define the download path
-        const modsPath = path.join(
-          os.homedir(),
-          "AppData",
-          "Roaming",
-          ".inkyhq",
-          "MODS"
-        );
-
-        // Ensure the directory exists
-        if (!fs.existsSync(modsPath)) {
-          fs.mkdirSync(modsPath, { recursive: true });
-        }
-
-        // Read the directory
-        fs.readdir(modsPath, (err, files) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-          // Display the files in the local list
-          const localList = document.getElementById("local-list");
-          if (!localList) {
-            console.error("Local list element not found.");
-            return;
-          }
-
-          // Clear existing items in case of re-renders
-          localList.innerHTML = "";
-
-          files.forEach((file) => {
-            const listItem = document.createElement("li");
-            listItem.textContent = file;
-            localList.appendChild(listItem);
-            localModsArray.push(file); // Save files to the array
-          });
-
-          // Call compareLists again to ensure it uses updated data
-          compareLists();
-        });
-      }
-
-      function retrievedMods() {
-        var modsArray = JSON.parse(sessionStorage.getItem("MODS")) || [];
-        var modsList = document.getElementById("retrieved");
-
-        if (!modsList) {
-          console.error("Retrieved list element not found.");
-          return;
-        }
-
-        modsList.innerHTML = ""; // Clear existing items
-
-        modsArray.forEach(function (modsItem) {
-          var li = document.createElement("li");
-          li.textContent = modsItem;
-          modsList.appendChild(li);
-        });
-      }
-
-      function compareLists() {
-        if (localModsArray.length === 0) {
-          console.log("Local mods array is empty. [LME153]");
-          return;
-        }
-
-        const localList = document.getElementById("local-list");
-        const retrievedList = document.getElementById("retrieved");
-
-        const localItems = Array.from(localList.children).map(
-          (li) => li.textContent
-        );
-        console.log(localItems);
-
-        const retrievedItems = Array.from(retrievedList.children).map(
-          (li) => li.textContent
-        );
-        console.log(retrievedItems);
-
-        const missingItems = retrievedItems.filter(
-          (item) => !localItems.includes(item)
-        );
-        const extraItems = localItems.filter(
-          (item) => !retrievedItems.includes(item)
-        );
-
-        if (missingItems.length > 0) {
-          missingItems.forEach((item) => {
-            const listItem = Array.from(retrievedList.children).find(
-              (li) => li.textContent === item
-            );
-            if (listItem) {
-              listItem.style.color = "red";
-            }
-          });
-        }
-
-        if (extraItems.length > 0) {
-          extraItems.forEach((item) => {
-            const listItem = Array.from(localList.children).find(
-              (li) => li.textContent === item
-            );
-            if (listItem) {
-              listItem.style.color = "yellow";
-            }
-          });
-        }
-      }
-
-      function syncFiles() {
-        JSAlert.confirm("Begin file sync?").then(function (result) {
-          // Check if pressed yes
-          if (!result) return;
-
-          const localList = document.getElementById("local-list");
-          const retrievedList = document.getElementById("retrieved");
-
-          const localItems = Array.from(localList.children).map(
-            (li) => li.textContent
-          );
-          const retrievedItems = Array.from(retrievedList.children).map(
-            (li) => li.textContent
-          );
-
-          const missingItems = retrievedItems.filter(
-            (item) => !localItems.includes(item)
-          );
-
-          if (missingItems.length === 0) {
-            JSAlert.alert("No missing files to sync.");
-            return;
-          }
-          JSAlert.alert(
-            "(Reload page to update.) " + missingItems,
-            "Syncing files..."
-          );
-
-          console.log("Missing files:", missingItems);
-          const modsPath = path.join(
-            os.homedir(),
-            "AppData",
-            "Roaming",
-            ".inkyhq",
-            "MODS"
-          );
-          if (!fs.existsSync(modsPath)) {
-            fs.mkdirSync(modsPath, { recursive: true });
-          }
-
-          const missingItemURLs =
-            JSON.parse(sessionStorage.getItem("MODS_URL")) || [];
-
-          // Convert MODS_URL array into an object
-          const modsURLMap = missingItemURLs.reduce((acc, entry) => {
-            const [modName, url] = entry.split("|");
-            acc[modName] = url;
-            return acc;
-          }, {});
-
-          missingItems.forEach((item) => {
-            const url = modsURLMap[item]; // Now using the mod name to get the URL
-            if (!url) {
-              console.error("URL not found for item:", item);
-              return;
-            }
-
-            const filePath = path.join(modsPath, item);
-            fetchFile(url, filePath);
-          });
-
-          function fetchFile(url, filePath) {
-            fetch(url)
-              .then((response) => {
-                if (!response.ok) {
-                  throw new Error("Network response was not ok");
-                }
-                return response.blob();
-              })
-              .then((blob) => {
-                const reader = new FileReader();
-                reader.onload = function () {
-                  const buffer = Buffer.from(reader.result);
-                  fs.writeFile(filePath, buffer, (err) => {
-                    if (err) {
-                      console.error("Error writing file:", err);
-                    } else {
-                      console.log("File saved:", filePath);
-                    }
-                  });
-                };
-                reader.readAsArrayBuffer(blob);
-              })
-              .catch((error) => {
-                console.error("Fetch error:", error);
-              });
-          }
-        });
-      }
-
-      function home() {
-        window.location.href = "../index.html";
-      }
-      function cW() {
-        window.close();
-      }
-    </script>
+    <script src="./js/dsrn.js"></script>
   </body>
 </html>

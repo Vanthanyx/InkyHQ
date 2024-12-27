@@ -1,0 +1,410 @@
+:root {
+  --base: #18181a; /* Base color */
+  --dark_base: #101014; /* Dark Base color */
+  --acc: var(--blue); /* Accent color */
+
+  /* Rainbow Accent Colors */
+  --red: #ff666e; /* Soft Red */
+  --crimson: #b3404a; /* Soft Crimson */
+  --orange: #ff8a50; /* Soft Orange */
+  --amber: #ffca60; /* Soft Amber */
+  --yellow: #ffef7d; /* Soft Yellow */
+  --lime: #7dfa72; /* Soft Lime */
+  --green: #60ed9d; /* Soft Green */
+  --teal: #4db6ac; /* Soft Teal */
+  --cyan: #4dd0e1; /* Soft Cyan */
+  --blue: #6d9fff; /* Soft Blue */
+  --indigo: #7986cb; /* Soft Indigo */
+  --violet: #ba68c8; /* Soft Violet */
+  --purple: #ab47bc; /* Soft Purple */
+  --pink: #ec407a; /* Soft Pink */
+  --magenta: #ff66ff; /* Soft Magenta */
+
+  /* Developer Colors */
+  --white: #ffffff; /* Soft White */
+  --NYX: #6f00ff; /* Soft Black Red */
+}
+
+.btnRed {
+  text-decoration: none;
+  background: none;
+  border: 2px solid;
+  border-radius: 10px;
+  margin: 2px;
+  font: inherit;
+  line-height: 1;
+  padding: 1em 2em;
+  display: inline-block;
+  color: var(--red);
+  transition: 0.25s;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.btnRed:hover,
+.btnRed:focus {
+  border-color: var(--red);
+  color: #fff;
+  box-shadow: inset 0 0 0 2em var(--red);
+}
+
+.btnCrimson {
+  text-decoration: none;
+  background: none;
+  border: 2px solid;
+  border-radius: 10px;
+  margin: 2px;
+  font: inherit;
+  line-height: 1;
+  padding: 1em 2em;
+  display: inline-block;
+  color: var(--crimson);
+  transition: 0.25s;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.btnCrimson:hover,
+.btnCrimson:focus {
+  border-color: var(--crimson);
+  color: #fff;
+  box-shadow: inset 0 0 0 2em var(--crimson);
+}
+
+.btnOrange {
+  text-decoration: none;
+  background: none;
+  border: 2px solid;
+  border-radius: 10px;
+  margin: 2px;
+  font: inherit;
+  line-height: 1;
+  padding: 1em 2em;
+  display: inline-block;
+  color: var(--orange);
+  transition: 0.25s;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.btnOrange:hover,
+.btnOrange:focus {
+  border-color: var(--orange);
+  color: #fff;
+  box-shadow: inset 0 0 0 2em var(--orange);
+}
+
+.btnAmber {
+  text-decoration: none;
+  background: none;
+  border: 2px solid;
+  border-radius: 10px;
+  margin: 2px;
+  font: inherit;
+  line-height: 1;
+  padding: 1em 2em;
+  display: inline-block;
+  color: var(--amber);
+  transition: 0.25s;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.btnAmber:hover,
+.btnAmber:focus {
+  border-color: var(--amber);
+  color: #fff;
+  box-shadow: inset 0 0 0 2em var(--amber);
+}
+
+.btnYellow {
+  text-decoration: none;
+  background: none;
+  border: 2px solid;
+  border-radius: 10px;
+  margin: 2px;
+  font: inherit;
+  line-height: 1;
+  padding: 1em 2em;
+  display: inline-block;
+  color: var(--yellow);
+  transition: 0.25s;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.btnYellow:hover,
+.btnYellow:focus {
+  border-color: var(--yellow);
+  color: #fff;
+  box-shadow: inset 0 0 0 2em var(--yellow);
+}
+
+.btnLime {
+  text-decoration: none;
+  background: none;
+  border: 2px solid;
+  border-radius: 10px;
+  margin: 2px;
+  font: inherit;
+  line-height: 1;
+  padding: 1em 2em;
+  display: inline-block;
+  color: var(--lime);
+  transition: 0.25s;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.btnLime:hover,
+.btnLime:focus {
+  border-color: var(--lime);
+  color: #fff;
+  box-shadow: inset 0 0 0 2em var(--lime);
+}
+
+.btnGreen {
+  text-decoration: none;
+  background: none;
+  border: 2px solid;
+  border-radius: 10px;
+  margin: 2px;
+  font: inherit;
+  line-height: 1;
+  padding: 1em 2em;
+  display: inline-block;
+  color: var(--green);
+  transition: 0.25s;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.btnGreen:hover,
+.btnGreen:focus {
+  border-color: var(--green);
+  color: #fff;
+  box-shadow: inset 0 0 0 2em var(--green);
+}
+
+.btnTeal {
+  text-decoration: none;
+  background: none;
+  border: 2px solid;
+  border-radius: 10px;
+  margin: 2px;
+  font: inherit;
+  line-height: 1;
+  padding: 1em 2em;
+  display: inline-block;
+  color: var(--teal);
+  transition: 0.25s;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.btnTeal:hover,
+.btnTeal:focus {
+  border-color: var(--teal);
+  color: #fff;
+  box-shadow: inset 0 0 0 2em var(--teal);
+}
+
+.btnCyan {
+  text-decoration: none;
+  background: none;
+  border: 2px solid;
+  border-radius: 10px;
+  margin: 2px;
+  font: inherit;
+  line-height: 1;
+  padding: 1em 2em;
+  display: inline-block;
+  color: var(--cyan);
+  transition: 0.25s;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.btnCyan:hover,
+.btnCyan:focus {
+  border-color: var(--cyan);
+  color: #fff;
+  box-shadow: inset 0 0 0 2em var(--cyan);
+}
+
+.btnBlue {
+  text-decoration: none;
+  background: none;
+  border: 2px solid;
+  border-radius: 10px;
+  margin: 2px;
+  font: inherit;
+  line-height: 1;
+  padding: 1em 2em;
+  display: inline-block;
+  color: var(--blue);
+  transition: 0.25s;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.btnBlue:hover,
+.btnBlue:focus {
+  border-color: var(--blue);
+  color: #fff;
+  box-shadow: inset 0 0 0 2em var(--blue);
+}
+
+.btnIndigo {
+  text-decoration: none;
+  background: none;
+  border: 2px solid;
+  border-radius: 10px;
+  margin: 2px;
+  font: inherit;
+  line-height: 1;
+  padding: 1em 2em;
+  display: inline-block;
+  color: var(--indigo);
+  transition: 0.25s;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.btnIndigo:hover,
+.btnIndigo:focus {
+  border-color: var(--indigo);
+  color: #fff;
+  box-shadow: inset 0 0 0 2em var(--indigo);
+}
+
+.btnViolet {
+  text-decoration: none;
+  background: none;
+  border: 2px solid;
+  border-radius: 10px;
+  margin: 2px;
+  font: inherit;
+  line-height: 1;
+  padding: 1em 2em;
+  display: inline-block;
+  color: var(--violet);
+  transition: 0.25s;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.btnViolet:hover,
+.btnViolet:focus {
+  border-color: var(--violet);
+  color: #fff;
+  box-shadow: inset 0 0 0 2em var(--violet);
+}
+
+.btnPurple {
+  text-decoration: none;
+  background: none;
+  border: 2px solid;
+  border-radius: 10px;
+  margin: 2px;
+  font: inherit;
+  line-height: 1;
+  padding: 1em 2em;
+  display: inline-block;
+  color: var(--purple);
+  transition: 0.25s;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.btnPurple:hover,
+.btnPurple:focus {
+  border-color: var(--purple);
+  color: #fff;
+  box-shadow: inset 0 0 0 2em var(--purple);
+}
+
+.btnPink {
+  text-decoration: none;
+  background: none;
+  border: 2px solid;
+  border-radius: 10px;
+  margin: 2px;
+  font: inherit;
+  line-height: 1;
+  padding: 1em 2em;
+  display: inline-block;
+  color: var(--pink);
+  transition: 0.25s;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.btnPink:hover,
+.btnPink:focus {
+  border-color: var(--pink);
+  color: #fff;
+  box-shadow: inset 0 0 0 2em var(--pink);
+}
+
+.btnMagenta {
+  text-decoration: none;
+  background: none;
+  border: 2px solid;
+  border-radius: 10px;
+  margin: 2px;
+  font: inherit;
+  line-height: 1;
+  padding: 1em 2em;
+  display: inline-block;
+  color: var(--magenta);
+  transition: 0.25s;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.btnMagenta:hover,
+.btnMagenta:focus {
+  border-color: var(--magenta);
+  color: #fff;
+  box-shadow: inset 0 0 0 2em var(--magenta);
+}
+
+.btnWhite {
+  text-decoration: none;
+  background: none;
+  border: 2px solid;
+  border-radius: 10px;
+  margin: 2px;
+  font: inherit;
+  line-height: 1;
+  padding: 1em 2em;
+  display: inline-block;
+  color: var(--white);
+  transition: 0.25s;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.btnWhite:hover,
+.btnWhite:focus {
+  border-color: var(--white);
+  color: #000;
+  box-shadow: inset 0 0 0 2em var(--white);
+}
