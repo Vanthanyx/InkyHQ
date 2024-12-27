@@ -33,6 +33,7 @@ if (!webdbrun) {
           sessionStorage.setItem("WEB_DB_RUN", webData.WEB_DB_RUN);
           sessionStorage.setItem("LATEST_VERSION", webData.LATEST_VERSION);
           sessionStorage.setItem("UPDATER_URL", webData.UPDATER_URL);
+          sessionStorage.setItem("INSTALLER_URL", webData.INSTALLER_URL);
           sessionStorage.setItem("NEWS", JSON.stringify(webData.NEWS));
           sessionStorage.setItem("MODS", JSON.stringify(webData.MODS));
           sessionStorage.setItem("MODS_URL", JSON.stringify(webData.MODS_URL));
@@ -60,12 +61,7 @@ if (!webdbrun) {
             alert(
               `ERROR 0x03\nA new version (${webData.LATEST_VERSION}) is available. Please update.`
             );
-            const updaterUrl = webData.UPDATER_URL;
-            if (updaterUrl) {
-              window.open(updaterUrl, "_blank");
-            } else {
-              JSAlert.alert("Unable to open Discord");
-            }
+            sessionStorage.setItem("UPDATE_AVAILABLE", true);
           }
         } catch (error) {
           console.error("FATAL ERROR 0x04: ", error.message);

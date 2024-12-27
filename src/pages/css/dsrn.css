@@ -16,6 +16,7 @@ body::before {
       ) var(--size);
   mask: linear-gradient(-15deg, transparent 45%, white);
   top: 0;
+  pointer-events: none;
 }
 .side-container {
   width: 45%;

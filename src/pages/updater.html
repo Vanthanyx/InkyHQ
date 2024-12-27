@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Inky HQ 🌐</title>
+    <link rel="stylesheet" href="../index.css" />
+    <link rel="stylesheet" href="./css/colors.css" />
+    <link rel="stylesheet" href="./css/ellipses.css" />
+    <script src="https://unpkg.com/js-alert/dist/jsalert.min.js"></script>
+  </head>
+  <body>
+    <style>
+      progress {
+        width: 80%;
+        height: 20px;
+        background-color: var(--dark_base);
+        color: var(--dark_base);
+        border-radius: 20px;
+        margin-top: 10px;
+        overflow: hidden;
+      }
+      progress::-webkit-progress-bar {
+        background-color: var(--dark_base);
+      }
+      progress::-webkit-progress-value {
+        background-color: var(--acc);
+      }
+      progress::-moz-progress-bar {
+        background-color: var(--acc);
+      }
+    </style>
+    <div class="titlebar">
+      <img src="../assets/home.png" class="menu-icon" onclick="home()" />
+      <img src="../assets/exit.png" class="menu-icon" onclick="cW()" />
+    </div>
+    <div class="container">
+      <div class="text-container">
+        <h1 style="text-transform: uppercase; letter-spacing: 5vw">updater</h1>
+        <hr style="width: 80%; margin-left: 0" />
+        <p>Current Version: <span id="currentVer"></span></p>
+        <p>Latest Version: <span id="latestVer"></span></p>
+        <progress value="0" max="100" id="progress"></progress>
+      </div>
+      <div class="button-container">
+        <button onclick="update()" class="btnGreen fill mbt">
+          BEGIN UPDATE
+        </button>
+        <button onclick="cancel()" class="btnRed fill mbt">
+          CANCEL UPDATE
+        </button>
+        <br />
+        <hr style="width: 75%; margin-left: auto; margin-right: 0" />
+        <br />
+        <a style="color: white" class="btn fill" onclick="window.close()"
+          >Exit App</a
+        >
+      </div>
+    </div>
+    <script>
+      function home() {
+        window.location.href = "../index.html";
+      }
+      function cW() {
+        window.close();
+      }
+
+      function cancel() {
+        sessionStorage.setItem("UPDATE_AVAILABLE", "false");
+        JSAlert.loader("Cancelling...").dismissIn(2000);
+        setTimeout(() => {
+          home();
+        }, 3000);
+      }
+
+      document.getElementById("currentVer").innerText =
+        localStorage.getItem("CURRENT_VERSION");
+      document.getElementById("latestVer").innerText =
+        sessionStorage.getItem("LATEST_VERSION");
+
+      const fs = require("fs").promises,
+        path = require("path"),
+        os = require("os");
+
+      function update() {
+        const INSTALLER_URL = sessionStorage.getItem("INSTALLER_URL");
+        const BAR = document.getElementById("progress");
+        const DOWNLOADS_FOLDER = path.join(
+          os.homedir(),
+          "AppData",
+          "Roaming",
+          ".inkyhq",
+          "VERSIONS"
+        );
+
+        fs.access(DOWNLOADS_FOLDER)
+          .catch(() => fs.mkdir(DOWNLOADS_FOLDER, { recursive: true }))
+          .then(() => {
+            JSAlert.loader("Downloading Installer").dismissIn(1500);
+
+            fetch(INSTALLER_URL)
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error("Network response was not ok");
+                }
+                const contentLength = response.headers.get("content-length");
+                if (!contentLength) {
+                  throw new Error("Content-Length response header unavailable");
+                }
+                const total = parseInt(contentLength, 10);
+                let loaded = 0;
+
+                const reader = response.body.getReader();
+                const stream = new ReadableStream({
+                  start(controller) {
+                    function push() {
+                      reader
+                        .read()
+                        .then(({ done, value }) => {
+                          if (done) {
+                            controller.close();
+                            return;
+                          }
+                          loaded += value.byteLength;
+                          BAR.value = (loaded / total) * 100;
+                          controller.enqueue(value);
+                          push();
+                        })
+                        .catch((error) => {
+                          console.error("Error reading stream", error);
+                          controller.error(error);
+                        });
+                    }
+                    push();
+                  },
+                });
+
+                return new Response(stream);
+              })
+              .then((response) => response.blob())
+              .then((blob) => {
+                const latestVer = sessionStorage.getItem("LATEST_VERSION");
+                const filePath = path.join(
+                  DOWNLOADS_FOLDER,
+                  `InkyHQ-${latestVer}.exe`
+                );
+                return fs.writeFile(
+                  filePath,
+                  Buffer.from(new Uint8Array(blob))
+                );
+              })
+              .then(() => {
+                JSAlert.confirm("Download complete, run installer?").then(
+                  function (result) {
+                    if (!result) return;
+                    const { exec } = require("child_process");
+                    const latestVer = sessionStorage.getItem("LATEST_VERSION");
+                    const filePath = path.join(
+                      os.homedir(),
+                      "AppData",
+                      "Roaming",
+                      ".inkyhq",
+                      "VERSIONS",
+                      `InkyHQ-${latestVer}.exe`
+                    );
+
+                    exec(`"${filePath}"`, (error) => {
+                      if (error) {
+                        BAR.style.setProperty("--acc", "var(--red)");
+                        console.error(`Error executing file: ${error.message}`);
+                        JSAlert.alert(
+                          "Failed to run installer: " + error.message
+                        );
+                        const { shell } = require("electron");
+                        shell.openPath(DOWNLOADS_FOLDER).catch((err) => {
+                          console.error("Failed to open folder", err);
+                          JSAlert.alert(
+                            "Failed to open folder: " + err.message
+                          );
+                        });
+                        JSAlert.confirm("Try manual installation?").then(
+                          function (result) {
+                            if (!result) return;
+                            window.location.href =
+                              "https://github.com/Vanthanyx/InkyHQ/releases";
+                          }
+                        );
+                      } else {
+                        sessionStorage.setItem("UPDATE_AVAILABLE", "false");
+                        JSAlert.alert("Installer executed successfully.");
+                      }
+                    });
+                  }
+                );
+              })
+              .catch((error) => {
+                console.error("Download failed", error);
+                JSAlert.alert("Download failed: " + error.message);
+              });
+          });
+      }
+    </script>
+    <div class="reposition">
+      <div class="ellipses-container">
+        <div class="ellipses ellipses__outer--thin">
+          <div class="ellipses ellipses__orbit"></div>
+        </div>
+        <div class="ellipses ellipses__outer--thick"></div>
+      </div>
+    </div>
+  </body>
+</html>

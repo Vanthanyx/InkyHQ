@@ -27,6 +27,27 @@
   --NYX: #6f00ff; /* Soft Black Red */
 }
 
+body::before {
+  --line: color-mix(in lch, var(--acc) 25%, transparent);
+  --size: 60px;
+  content: "";
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  background: linear-gradient(
+        90deg,
+        var(--line) 2px,
+        transparent 2px var(--size)
+      )
+      0 -5vmin / var(--size) var(--size),
+    linear-gradient(var(--line) 2px, transparent 2px var(--size)) 0 -5vmin / var(
+        --size
+      ) var(--size);
+  mask: linear-gradient(-15deg, transparent 45%, var(--acc));
+  top: 0;
+  pointer-events: none;
+}
+
 * {
   font-family: "JetBrains Mono", monospace;
   font-optical-sizing: auto;
@@ -133,6 +154,15 @@ p {
 .fill:hover,
 .fill:focus {
   box-shadow: inset 0 0 0 2em var(--hover);
+}
+
+.mbt {
+  width: 75%;
+}
+
+.discord-widget {
+  width: 80%;
+  z-index: 999;
 }
 
 .buttons-div {
