@@ -35,9 +35,6 @@ const createWindow = () => {
     const windowHeight = 556;
     mainWindow.setSize(windowWidth + 400, windowHeight);
   }
-
-  // Open the DevTools.
-  //mainWindow.webContents.openDevTools();
 };
 app.whenReady().then(() => {
   createWindow();
@@ -46,10 +43,6 @@ app.whenReady().then(() => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
     }
-  });
-
-  ipcMain.on("minimize-window", () => {
-    mainWindow.minimize();
   });
 });
 

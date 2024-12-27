@@ -1,7 +1,7 @@
 {
   "name": "inkyhq",
   "productName": "inkyhq",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Inky HQ Desktop App",
   "main": "src/index.js",
   "scripts": {

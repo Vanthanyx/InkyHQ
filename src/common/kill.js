@@ -1,4 +1,4 @@
-const targetDate = new Date("2025-01-01");
+const targetDate = new Date("2025-02-01");
 const currentDate = new Date();
 const APP_LIVE = localStorage.getItem("APP_LIVE");
 

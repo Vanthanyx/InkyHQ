@@ -31,14 +31,7 @@ async function manageAppData() {
     console.error("CRIT ERR:", a);
   }
 
-  const folders = [
-    "ADMINISTRATION",
-    "CONFIG",
-    "DOWNLOADS",
-    "LOGS",
-    "MODS",
-    "VERSIONS",
-  ];
+  const folders = ["ADMIN", "DOWNLOADS", "LOGS", "MODS", "VERSIONS"];
   for (const folder of folders) {
     const folderPath = path.join(e, folder);
     try {
