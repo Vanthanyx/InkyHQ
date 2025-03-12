@@ -1,6 +1,7 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("node:path");
 const { ipcMain } = require("electron");
+const fs = require("fs");
 
 if (require("electron-squirrel-startup")) {
   app.quit();
@@ -13,7 +14,7 @@ const createWindow = () => {
     width: 1006,
     height: 556,
     frame: false,
-    icon: path.join(__dirname, "assets", "icon.ico"),
+    icon: path.join(__dirname, "assets", "squid.ico"),
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -54,4 +55,11 @@ app.on("window-all-closed", () => {
 
 ipcMain.handle("getAppVersion", () => {
   return app.getVersion();
+});
+
+ipcMain.handle("getBNameVersion", () => {
+  const packageJson = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "../package.json"))
+  );
+  return packageJson.bNameVersion;
 });

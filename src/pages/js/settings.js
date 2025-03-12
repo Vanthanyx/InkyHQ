@@ -22,7 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const currentVersion = require("../../package.json").version;
-  document.getElementById("version").innerText = "v" + currentVersion;
+  const bNameVersion = require("../../package.json").bNameVersion;
+  document.getElementById("version").innerText =
+    "v" + currentVersion + " | v" + bNameVersion;
 });
 
 function home() {

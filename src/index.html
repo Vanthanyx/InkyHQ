@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Inky HQ 🌐</title>
+    <title>VoidLink 🛰️</title>
     <link rel="stylesheet" href="index.css" />
     <link rel="stylesheet" href="./pages/css/colors.css" />
     <link rel="stylesheet" href="./pages/css/ellipses.css" />
@@ -21,19 +21,10 @@
     </div>
     <div class="container">
       <div class="text-container">
-        <h1 style="text-transform: uppercase; letter-spacing: 5vw">Inky•HQ</h1>
+        <h1 style="text-transform: uppercase; letter-spacing: 2.5vw">
+          Void•Link
+        </h1>
         <hr style="width: 80%; margin-left: 0" />
-        <!--<p style="width: 50%; font-size: 12px">
-          The Inky HQ app is your essential tool for staying engaged with the
-          Inky SMP community. Whether you're a seasoned player or new to the
-          server, the app provides seamless access to all the information you
-          need. Stay updated with the latest server events, news, and
-          announcements in real time. You can easily check server status, access
-          important resources, and manage your gameplay preferences directly
-          from the app. Designed for convenience and efficiency, Inky HQ ensures
-          you have everything at your fingertips to enhance your experience on
-          Inky SMP. Keep an eye out for the stable release, coming soon!
-        </p>-->
         <iframe
           src="https://discord.com/widget?id=1204552617615827056&theme=dark"
           width="285"
@@ -56,9 +47,8 @@
         <a href="pages/landing.html" class="btn fill mbt"
           >ANNOUNCEMENTS & INSTALLATIONS</a
         >
-        <a href="pages/games.html" class="btn fill mbt">MINIGAMES</a>
-        <a href="pages/leaderboards.html" class="btn fill mbt">LEADERBOARD</a>
-        <a href="pages/dsrn.html" class="btnGreen fill mbt">DSRN-DX24</a>
+        <!--<a href="pages/leaderboards.html" class="btn fill mbt">LEADERBOARD</a>-->
+        <a href="pages/dsrn.html" class="btnGray fill mbt">DSRN-DX24</a>
         <br />
         <hr style="width: 100%" />
         <br />
@@ -68,13 +58,6 @@
       </div>
     </div>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        if (!sessionStorage.getItem("OPENAPP_RAN")) {
-          sessionStorage.setItem("OPENAPP_RAN", "true");
-          location.reload();
-        }
-      });
-
       const UPDATE_AVAILABLE = sessionStorage.getItem("UPDATE_AVAILABLE");
       if (UPDATE_AVAILABLE === "true") {
         window.location.href = "./pages/updater.html";

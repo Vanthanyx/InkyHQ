@@ -88,7 +88,7 @@ async function downloadFileToPath(url, code, progressElement) {
         os.homedir(),
         "AppData",
         "Roaming",
-        ".inkyhq",
+        ".voidlink",
         "DOWNLOADS"
       );
 

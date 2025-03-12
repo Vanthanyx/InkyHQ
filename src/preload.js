@@ -5,6 +5,9 @@ const fs = require("fs");
 ipcRenderer.invoke("getAppVersion").then((currentVersion) => {
   localStorage.setItem("CURRENT_VERSION", currentVersion);
 });
+ipcRenderer.invoke("getBNameVersion").then((bNameVersion) => {
+  localStorage.setItem("BNAME_VERSION", bNameVersion);
+});
 
 const username = os.userInfo().username;
 localStorage.setItem("OS_USERNAME", username);
@@ -25,7 +28,7 @@ function logFile() {
     os.homedir(),
     "AppData",
     "Roaming",
-    ".inkyhq",
+    ".voidlink",
     "LOGS",
     logFileName
   );

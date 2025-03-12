@@ -79,10 +79,12 @@ button:hover {
   font-size: 4px;
   color: white;
   cursor: pointer;
-  border: 1px solid var(--acc);
+  border: 2px solid #ff666e;
   background-color: var(--base);
+  transition: 0.2s all ease-in-out;
 }
 
 .login-close:hover {
   background-color: #ff666e;
+  border: 2px solid white;
 }

@@ -1,8 +1,9 @@
 {
-  "name": "inkyhq",
-  "productName": "inkyhq",
+  "name": "voidlink",
+  "productName": "voidlink",
   "version": "1.2.0",
-  "description": "Inky HQ Desktop App",
+  "bNameVersion": "1.0.250311.1",
+  "description": "VoidLink Desktop App",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -29,9 +30,10 @@
   "license": "MIT",
   "dependencies": {
     "electron-squirrel-startup": "^1.0.1",
-    "inkyhq": "file:",
     "js-alert": "^2.0.0",
     "js-yaml": "^4.1.0",
-    "node-fetch": "^3.3.2"
+    "minecraft-launcher-core": "^3.18.2",
+    "node-fetch": "^3.3.2",
+    "voidlink": "file:"
   }
 }

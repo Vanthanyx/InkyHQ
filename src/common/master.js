@@ -4,6 +4,8 @@ if (storedColor) {
     "--acc",
     "var(--" + storedColor + ")"
   );
+} else {
+  document.documentElement.style.setProperty("--acc", "var(--blue)");
 }
 
 function loadScript(src) {
@@ -13,12 +15,11 @@ function loadScript(src) {
   document.head.appendChild(script);
 }
 
-setTimeout(() => {
-  const webdbrun = sessionStorage.getItem("WEB_DB_RUN");
-  if (!webdbrun) {
+window.addEventListener("load", function () {
+  if (!sessionStorage.getItem("WEB_DB_RUN")) {
     loadScript("./core/fetch.js");
   }
-}, 3000);
+});
 
 document.addEventListener("keydown", function (event) {
   if (event.altKey && event.key.toLowerCase() === "r") {

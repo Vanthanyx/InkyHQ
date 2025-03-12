@@ -1,3 +1,11 @@
+document.addEventListener("DOMContentLoaded", function () {
+  JSAlert.alert("Temporarily Out of Service as of v1.0.250311.1");
+  document.querySelectorAll("button").forEach((button) => {
+    button.style.cursor = "not-allowed";
+    button.disabled = true;
+  });
+});
+
 function toggleMenu() {
   const hoverMenu = document.querySelector(".hover-menu");
   if (hoverMenu.style.display === "none" || hoverMenu.style.display === "") {
@@ -22,7 +30,7 @@ function openFolder() {
     os.homedir(),
     "AppData",
     "Roaming",
-    ".inkyhq",
+    ".voidlink",
     "MODS"
   );
   require("child_process").exec(`start ${modsPath}`);
@@ -36,7 +44,7 @@ function getLocalMods() {
     os.homedir(),
     "AppData",
     "Roaming",
-    ".inkyhq",
+    ".voidlink",
     "MODS"
   );
 
@@ -171,7 +179,7 @@ function syncFiles() {
       os.homedir(),
       "AppData",
       "Roaming",
-      ".inkyhq",
+      ".voidlink",
       "MODS"
     );
     if (!fs.existsSync(modsPath)) {
@@ -254,7 +262,7 @@ function removeExtraItems() {
         os.homedir(),
         "AppData",
         "Roaming",
-        ".inkyhq",
+        ".voidlink",
         "MODS"
       );
 

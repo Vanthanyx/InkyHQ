@@ -5,7 +5,7 @@ const fs = require("fs").promises,
 
 async function manageAppData() {
   var a = path.join(os.homedir(), "AppData", "Roaming"),
-    e = path.join(a, ".inkyhq"),
+    e = path.join(a, ".voidlink"),
     o = path.join(e, "USERINFO");
   try {
     await fs.access(e).catch(() => fs.mkdir(e, { recursive: !0 }));
@@ -31,7 +31,14 @@ async function manageAppData() {
     console.error("CRIT ERR:", a);
   }
 
-  const folders = ["ADMIN", "DOWNLOADS", "LOGS", "MODS", "VERSIONS"];
+  const folders = [
+    "ADMIN",
+    "DOWNLOADS",
+    "LOGS",
+    "MINECRAFT",
+    "MODS",
+    "VERSIONS",
+  ];
   for (const folder of folders) {
     const folderPath = path.join(e, folder);
     try {
@@ -43,6 +50,6 @@ async function manageAppData() {
 }
 
 var a = path.join(os.homedir(), "AppData", "Roaming"),
-  e = path.join(a, ".inkyhq");
+  e = path.join(a, ".voidlink");
 
 module.exports = manageAppData;

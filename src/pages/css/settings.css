@@ -1,16 +1,16 @@
 #version {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
-  font-size: 12px;
+  bottom: 0.5rem;
+  right: 2.75rem;
+  font-size: 0.75rem;
   color: white;
 }
 
 #version-btn {
   position: absolute;
-  bottom: 10px;
-  right: 70px;
-  font-size: 6px;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  font-size: 0.25rem;
   color: white;
 }
 

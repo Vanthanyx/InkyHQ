@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Inky HQ 🌐</title>
+    <title>VoidLink 🛰️</title>
     <link rel="stylesheet" href="../index.css" />
     <link rel="stylesheet" href="./css/settings.css" />
     <script src="https://unpkg.com/js-alert/dist/jsalert.min.js"></script>
@@ -19,21 +19,15 @@
           <h1>Settings</h1>
           <hr style="width: 50%; margin-left: 0" />
           <p style="width: 50%; font-size: 12px">
-            Welcome to the Settings page of Inky HQ! Here, you can customize
+            Welcome to the Settings page of VoidLink! Here, you can customize
             your app experience to suit your preferences. Adjust notification
             settings to stay informed about the latest updates and events.
             Manage your account details and privacy settings to ensure your
             information is secure. Explore various options to personalize the
-            app interface, making your interaction with Inky SMP even more
-            enjoyable. Take control of your Inky HQ experience and tailor it to
+            app interface, making your interaction with RIFTSCAPE even more
+            enjoyable. Take control of your VoidLink experience and tailor it to
             your needs. Happy customizing!
           </p>
-          <button
-            class="btn fill"
-            onclick="window.location.href='./integration.html'"
-          >
-            Integration
-          </button>
           <button class="btn fill" id="login-btn" onclick="login()">
             Log In
           </button>
@@ -57,6 +51,7 @@
             <option value="purple">Purple</option>
             <option value="pink">Pink</option>
             <option value="magenta">Magenta</option>
+            <option value="gray">Gray</option>
           </select>
           <br />
           <label for="notification-settings" class="setting-label"
@@ -83,10 +78,9 @@
           <button class="btn fill" style="align-self: center" onclick="save()">
             Save
           </button>
-
-          <button id="version-btn" class="btn fill" onclick="cfu()">⟳</button>
-          <span id="version">vX.X.XX</span>
         </div>
+        <button id="version-btn" class="btn fill" onclick="cfu()">⟳</button>
+        <span id="version">vX.X.XX</span>
       </div>
     </div>
     <script src="./js/settings.js"></script>
