@@ -6,6 +6,7 @@
   position: relative;
   top: 10.5rem;
   pointer-events: none;
+  background-color: rgba(16, 16, 20, 0.75);
 }
 
 .ellipses {

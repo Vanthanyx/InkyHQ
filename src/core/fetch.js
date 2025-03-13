@@ -95,7 +95,7 @@ try {
   if (storedColor) {
     document.documentElement.style.setProperty("--acc", storedColor);
   } else if (storedColor === null || storedColor === "default") {
-    document.documentElement.style.setProperty("--acc", "--blue");
+    document.documentElement.style.setProperty("--acc", "--branded_blue");
   }
 } catch (error) {
   console.error("FATAL ERROR 0x0C: Error setting accent color - ", error);

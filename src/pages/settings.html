@@ -6,13 +6,21 @@
     <link rel="stylesheet" href="../index.css" />
     <link rel="stylesheet" href="./css/settings.css" />
     <script src="https://unpkg.com/js-alert/dist/jsalert.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
     <script src="../common/master.js"></script>
   </head>
   <body>
     <div class="wrapper">
       <div class="titlebar">
-        <img src="../assets/home.png" class="menu-icon" onclick="home()" />
-        <img src="../assets/exit.png" class="menu-icon" onclick="cW()" />
+        <button class="menu-btn" onclick="home()">
+          <span class="material-symbols-outlined menu-icon"> home </span>
+        </button>
+        <button class="menu-btn" onclick="cW()">
+          <span class="material-symbols-outlined menu-icon"> close </span>
+        </button>
       </div>
       <div class="container">
         <div class="text-container">
@@ -36,7 +44,7 @@
           <label for="accent-color" class="setting-label">Accent Color</label>
           <hr style="width: 100%" />
           <select id="accent-color" class="btn fill">
-            <option value="blue">Default (Blue)</option>
+            <option value="branded_blue">Default (Blue)</option>
             <option value="red">Red</option>
             <option value="crimson">Crimson</option>
             <option value="orange">Orange</option>
@@ -46,6 +54,7 @@
             <option value="green">Green</option>
             <option value="teal">Teal</option>
             <option value="cyan">Cyan</option>
+            <option value="blue">Blue</option>
             <option value="indigo">Indigo</option>
             <option value="violet">Violet</option>
             <option value="purple">Purple</option>
@@ -70,8 +79,8 @@
           >
           <hr style="width: 100%" />
           <select id="launcher" class="btn fill">
-            <option value="disabled">Default (Off)</option>
-            <option value="enabled">Enabled</option>
+            <option value="enabled">Default (On)</option>
+            <option value="disabled">Disabled</option>
           </select>
           <br />
 

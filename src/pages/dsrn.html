@@ -6,14 +6,22 @@
     <link rel="stylesheet" href="../index.css" />
     <link rel="stylesheet" href="./css/settings.css" />
     <link rel="stylesheet" href="./css/dsrn.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
     <script src="https://unpkg.com/js-alert/dist/jsalert.min.js"></script>
     <script src="../common/master.js"></script>
   </head>
   <body>
     <div class="wrapper">
       <div class="titlebar">
-        <img src="../assets/home.png" class="menu-icon" onclick="home()" />
-        <img src="../assets/exit.png" class="menu-icon" onclick="cW()" />
+        <button class="menu-btn" onclick="home()">
+          <span class="material-symbols-outlined menu-icon"> home </span>
+        </button>
+        <button class="menu-btn" onclick="cW()">
+          <span class="material-symbols-outlined menu-icon"> close </span>
+        </button>
       </div>
       <div class="container">
         <div class="side-container" id="list">

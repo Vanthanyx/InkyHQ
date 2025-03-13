@@ -36,14 +36,6 @@ function cW() {
 
 function login() {
   window.open("./login.html", "Login", "width=450,height=350,frame=false");
-  /*JSAlert.prompt("Enter your username").then((username) => {
-      if (username) {
-        localStorage.setItem("USERNAME", username);
-        window.location.reload();
-      } else {
-        JSAlert.alert("Login Failed...");
-      }
-    });*/
 }
 
 function save() {

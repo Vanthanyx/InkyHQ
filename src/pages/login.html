@@ -14,34 +14,26 @@
         <button class="login-close" onclick="window.close()"></button>
         <h1>VoidLink Login</h1>
         <form id="login-form" onsubmit="login(event)">
-          <label for="mc-username">Minecraft Username</label>
+          <label for="auth-key">Auth Token</label>
           <input
             type="text"
-            id="mc-username"
-            name="mc-username"
-            placeholder="(Currently Disabled)"
-            disabled
-          />
-          <label for="server-id">Server Player ID</label>
-          <input
-            type="text"
-            id="server-id"
-            name="server-id"
-            placeholder="(Currently Disabled)"
-            disabled
-          />
-          <label for="auth-key">Authentication Key</label>
-          <input
-            type="password"
             id="auth-key"
             name="auth-key"
-            placeholder="(Currently Disabled)"
-            disabled
+            placeholder="Enter your auth key..."
           />
           <button type="submit">Login</button>
         </form>
         <script src="./js/login.js"></script>
       </div>
     </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const authKey = urlParams.get("AUTH_KEY");
+        if (authKey) {
+          document.getElementById("auth-key").value = authKey;
+        }
+      });
+    </script>
   </body>
 </html>

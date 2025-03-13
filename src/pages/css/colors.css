@@ -1,7 +1,9 @@
 :root {
   --base: #18181a; /* Base color */
   --dark_base: #101014; /* Dark Base color */
-  --acc: var(--blue); /* Accent color */
+  --acc: var(--branded_blue); /* Accent color */
+
+  --branded_blue: #637eee; /* Branded Blue */
 
   /* Rainbow Accent Colors */
   --red: #ff666e; /* Soft Red */

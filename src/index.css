@@ -3,7 +3,9 @@
 :root {
   --base: #18181a; /* Base color */
   --dark_base: #101014; /* Dark Base color */
-  --acc: var(--blue); /* Accent color */
+  --acc: var(--branded_blue); /* Accent color */
+
+  --branded_blue: #637eee; /* Branded Blue */
 
   /* Rainbow Accent Colors */
   --red: #ff666e; /* Soft Red */
@@ -113,7 +115,7 @@ p {
 .titlebar {
   -webkit-app-region: drag;
   width: 100%;
-  height: 20px;
+  height: 1.5rem;
   background-color: var(--acc);
   color: white;
   display: flex;
@@ -123,11 +125,22 @@ p {
   padding: 0 0px;
 }
 
-.menu-icon {
-  height: 16px;
-  width: 16px;
-  margin-right: 5px;
+.menu-btn {
+  -webkit-app-region: no-drag;
   cursor: pointer;
+  background: transparent;
+  border: none;
+  color: white;
+  width: auto;
+  height: auto;
+}
+
+.menu-icon {
+  height: 0.1rem;
+  width: 0.1rem;
+  margin-top: 0.2rem;
+  margin-right: 1.25rem;
+  cursor: pointer !important;
   z-index: 100;
   -webkit-app-region: no-drag;
 }
@@ -171,7 +184,9 @@ p {
 
 .discord-widget {
   width: 80%;
-  z-index: 999;
+  z-index: 1000;
+  position: relative;
+  opacity: 0.9;
 }
 
 #accent-color,

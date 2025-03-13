@@ -42,4 +42,6 @@
   flex-direction: column;
   align-items: flex-start;
   width: 35%;
+  background-color: transparent !important;
+  border: none !important;
 }

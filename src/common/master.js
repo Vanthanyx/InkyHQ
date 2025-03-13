@@ -5,7 +5,7 @@ if (storedColor) {
     "var(--" + storedColor + ")"
   );
 } else {
-  document.documentElement.style.setProperty("--acc", "var(--blue)");
+  document.documentElement.style.setProperty("--acc", "var(--branded_blue)");
 }
 
 function loadScript(src) {
@@ -17,7 +17,10 @@ function loadScript(src) {
 
 window.addEventListener("load", function () {
   if (!sessionStorage.getItem("WEB_DB_RUN")) {
-    loadScript("./core/fetch.js");
+    loadScript("./core/F2.js");
+    setTimeout(() => {
+      this.location.reload();
+    }, 500);
   }
 });
 

@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="index.css" />
     <link rel="stylesheet" href="./pages/css/colors.css" />
     <link rel="stylesheet" href="./pages/css/ellipses.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
     <script src="https://unpkg.com/js-alert/dist/jsalert.min.js"></script>
     <script src="./common/kill.js"></script>
     <script src="./core/install.js"></script>
@@ -16,8 +20,12 @@
   </head>
   <body>
     <div class="titlebar">
-      <img src="./assets/settings.png" class="menu-icon" onclick="oS()" />
-      <img src="./assets/exit.png" class="menu-icon" onclick="cW()" />
+      <button class="menu-btn" onclick="oS()">
+        <span class="material-symbols-outlined menu-icon"> tune </span>
+      </button>
+      <button class="menu-btn" onclick="cW()">
+        <span class="material-symbols-outlined menu-icon"> close </span>
+      </button>
     </div>
     <div class="container">
       <div class="text-container">
@@ -73,10 +81,10 @@
       document.addEventListener("DOMContentLoaded", function () {
         const launcherEnabled = localStorage.getItem("LAUNCHER");
         const launcherButton = document.getElementById("launcherBtn");
-        if (launcherEnabled === "enabled") {
-          launcherButton.style.display = "block";
-        } else {
+        if (launcherEnabled === "diabled") {
           launcherButton.style.display = "none";
+        } else {
+          launcherButton.style.display = "block";
         }
       });
     </script>
