@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, Tray, Menu } = require("electron");
 const path = require("node:path");
 const { ipcMain } = require("electron");
 const fs = require("fs");
@@ -7,14 +7,19 @@ if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
+// ============================================================
+// Main VoidLink App Window
+// ============================================================
+
 let mainWindow;
+let tray = null;
 
 const createWindow = () => {
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 1006,
     height: 556,
     frame: false,
-    icon: path.join(__dirname, "assets", "squid.ico"),
+    icon: path.join(__dirname, "assets", "bh2.ico"),
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -31,12 +36,83 @@ const createWindow = () => {
     });
   } else {
     mainWindow.webContents.openDevTools();
-
-    const windowWidth = 1006;
-    const windowHeight = 556;
-    mainWindow.setSize(windowWidth + 400, windowHeight);
+    mainWindow.setSize(1406, 556); // 1006 + 400
   }
+
+  mainWindow.on("close", (event) => {
+    event.preventDefault();
+    mainWindow.hide();
+  });
+
+  createTray();
 };
+
+// ============================================================
+// Tray
+// ============================================================
+
+const createTray = () => {
+  tray = new Tray(path.join(__dirname, "assets", "bh2.ico"));
+  let currentRelease = "beta";
+
+  async function updateVersionLabel() {
+    try {
+      const appVersion = app.getVersion();
+      let bNameVersion = "UNKNOWN";
+
+      const packageJson = JSON.parse(
+        fs.readFileSync(path.join(__dirname, "../package.json"))
+      );
+      bNameVersion = packageJson.bNameVersion || "Unknown";
+
+      const versionLabel = `Version: ${appVersion} (${bNameVersion})`;
+
+      const contextMenu = Menu.buildFromTemplate([
+        { label: "Show", click: () => mainWindow.show() },
+        { label: "Hide", click: () => mainWindow.hide() },
+        { label: "Reload", click: () => mainWindow.reload() },
+        { label: "Exit", click: () => app.quit() },
+        { type: "separator" },
+        {
+          label: "Beta Release",
+          type: "radio",
+          checked: currentRelease === "beta",
+        },
+        {
+          label: "Alpha Release",
+          type: "radio",
+          checked: currentRelease === "alpha",
+          enabled: false,
+        },
+        { type: "separator" },
+        {
+          label: versionLabel,
+          enabled: false,
+        },
+      ]);
+
+      tray.setToolTip("VoidLink");
+      tray.setContextMenu(contextMenu);
+    } catch (err) {
+      console.error("Error loading version:", err);
+    }
+  }
+
+  setTimeout(updateVersionLabel, 1000);
+
+  tray.on("click", () => {
+    if (mainWindow.isVisible()) {
+      mainWindow.hide();
+    } else {
+      mainWindow.show();
+    }
+  });
+};
+
+// ============================================================
+// App Events
+// ============================================================
+
 app.whenReady().then(() => {
   createWindow();
 
@@ -53,9 +129,19 @@ app.on("window-all-closed", () => {
   }
 });
 
-ipcMain.handle("getAppVersion", () => {
-  return app.getVersion();
+// ============================================================
+// IPC Events
+// ============================================================
+
+ipcMain.on("window-close", () => {
+  if (mainWindow) mainWindow.close();
 });
+
+ipcMain.on("window-minimize", () => {
+  if (mainWindow) mainWindow.hide();
+});
+
+ipcMain.handle("getAppVersion", () => app.getVersion());
 
 ipcMain.handle("getBNameVersion", () => {
   const packageJson = JSON.parse(

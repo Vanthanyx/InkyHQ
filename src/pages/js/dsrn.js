@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   JSAlert.alert("Temporarily Out of Service as of v1.0.250311.1");
-  document.querySelectorAll("button").forEach((button) => {
+  document.querySelectorAll("button:not(.menu-btn)").forEach((button) => {
     button.style.cursor = "not-allowed";
     button.disabled = true;
   });
