@@ -29,6 +29,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "crypto": "^1.0.1",
     "electron-squirrel-startup": "^1.0.1",
     "js-alert": "^2.0.0",
     "js-yaml": "^4.1.0",

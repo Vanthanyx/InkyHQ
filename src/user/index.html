@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>VoidLink 🛰️</title>
+    <link rel="stylesheet" href="../index.css" />
+    <link rel="stylesheet" href="../pages/css/colors.css" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+    <script src="https://unpkg.com/js-alert/dist/jsalert.min.js"></script>
+  </head>
+  <body>
+    <div class="titlebar">
+      <button class="menu-btn" onclick="mM()">
+        <span class="material-symbols-outlined menu-icon"> apps </span>
+      </button>
+      <button class="menu-btn" onclick="home()">
+        <span class="material-symbols-outlined menu-icon"> home </span>
+      </button>
+      <button class="menu-btn" onclick="cW()">
+        <span class="material-symbols-outlined menu-icon"> close </span>
+      </button>
+    </div>
+    <div class="container">
+      <div class="text-container">
+        <h1 style="text-transform: uppercase; letter-spacing: 1rem">
+          <span id="username">---- • ----</span>
+        </h1>
+        <hr style="width: 80%; margin-left: 0" />
+        <div class="login-section">
+          <form id="login-form" onsubmit="event.preventDefault()">
+            <h2>Connection Information</h2>
+
+            <label for="username-input">Username</label>
+            <input
+              type="text"
+              id="username-input"
+              placeholder="Enter your username"
+              required
+            />
+
+            <label for="password-input"
+              >Password <span id="token">(Token)</span></label
+            >
+            <input
+              type="password"
+              id="password-input"
+              placeholder="Enter your password"
+              required
+            />
+
+            <button id="login-btn" type="submit" onclick="setup1()">
+              Submit C-Info
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="info-container">
+        <h2>Account Info</h2>
+        <p>
+          <strong>Username:</strong> <span id="rs-username">Not Available</span>
+        </p>
+        <p><strong>RIFTSCAPE ID:</strong> <span id="rs-id">XX0000</span></p>
+        <p>
+          <strong>Discord:</strong> <span id="rs-discord">Not Available</span>
+        </p>
+        <p><strong>Rank:</strong> <span id="rs-rank">Not Available</span></p>
+        <p><strong>Credits:</strong> <span id="rs-credits">$00.00</span></p>
+        <p><strong>Region:</strong> <span id="rs-region">N/A</span></p>
+        <h2>
+          Server Info
+          <div class="sync-span">
+            <span class="material-symbols-outlined" id="sync-span">
+              cloud_sync
+            </span>
+          </div>
+        </h2>
+        <h3>(Requires live player connection.)</h3>
+        <p>
+          <strong>Username:</strong> <span id="mc-username">Not Available</span>
+        </p>
+        <p><strong>UUID:</strong> <span id="mc-uuid">Not Available</span></p>
+        <p>
+          <strong>Connection:</strong>
+          <span id="mc-connection">Not Available</span>
+        </p>
+        <p>
+          <strong>Join Date:</strong>
+          <span id="mc-join-date">XXX 00, 2025</span>
+        </p>
+      </div>
+    </div>
+    <div class="load-btn" id="load-btn">
+      <span class="material-symbols-outlined"> background_replace </span>
+    </div>
+    <script src="./login.js"></script>
+    <script>
+      function setup1() {
+        const username = document.getElementById("username-input").value;
+        const password = document.getElementById("password-input").value;
+
+        loginUsernameAndPassword(username, password)
+          .then((message) => {
+            JSAlert.alert(message); // Show success message
+            document.getElementById("rs-username").innerText = "ADMIN01";
+            document.getElementById("rs-discord").innerText = "Notchz__";
+            document.getElementById("rs-id").innerText = "QR2246";
+            document.getElementById("rs-rank").innerText = "Admin";
+            document.getElementById("rs-credits").innerText = "$100.00";
+            document.getElementById("rs-region").innerText = "NA";
+
+            document.getElementById("username").innerText = "ADMINISTRATION";
+          })
+          .catch((error) => {
+            alert(error); // Show error message
+          });
+      }
+
+      function setup2() {
+        const token = document.getElementById("password-input").value;
+        const time_date = new Date().toUTCString();
+        const tokenData = LoginTokenAndDate(token, time_date);
+
+        if (tokenData) {
+          JSAlert.alert("Login Successful");
+          document.getElementById("rs-username").innerText = tokenData.username;
+          document.getElementById("rs-id").innerText = tokenData.id;
+          document.getElementById("username").innerText = tokenData.username;
+        } else {
+          JSAlert.alert("Invalid Token");
+        }
+      }
+
+      document.getElementById("token").addEventListener("click", function () {
+        const passwordLabel = document.querySelector(
+          "label[for='password-input']"
+        );
+        passwordLabel.innerHTML = "Login Token";
+        this.style.display = "none";
+        const passwordInput = document.getElementById("password-input");
+        passwordInput.placeholder = "Enter your login token";
+        const usernameInput = document.getElementById("username-input");
+        usernameInput.value = new Date().toUTCString();
+        const usernameLabel = document.querySelector(
+          "label[for='username-input']"
+        );
+        usernameLabel.innerHTML = "Time & Date";
+        const submitBtn = document.getElementById("login-btn");
+        submitBtn.innerHTML = "Submit Token";
+        submitBtn.onclick = setup2;
+      });
+
+      const { ipcRenderer } = require("electron");
+
+      function mM() {
+        ipcRenderer.send("window-minimize");
+      }
+
+      function home() {
+        window.location.href = "../index.html";
+      }
+
+      function cW() {
+        window.close();
+      }
+    </script>
+    <script src="./sync.js"></script>
+    <script src="./tokens.js"></script>
+  </body>
+</html>
