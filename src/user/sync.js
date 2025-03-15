@@ -72,7 +72,7 @@ document
       playerModelSection.classList.add("playerModel-section");
       playerModelSection.innerHTML = `
         <h2>Player Model</h2>
-        <p>Currently under development as of v1.20250314.1,
+        <p>Currently under development as of v1.0.20250314.2,
         please check back later for updates.</p> 
       `;
 
