@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VoidLink | Update</title>
+  </head>
+  <body>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+      * {
+        font-family: "Rubik", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+        margin: 0.25rem 0;
+        padding: 0;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #101014;
+        color: white;
+        overflow: hidden;
+      }
+      h1 {
+        font-size: 1.75em;
+        text-shadow: 0 0 4px 0 rgba(99, 126, 238, 0.8);
+      }
+      progress {
+        width: 80%;
+        height: 1.25rem;
+        background-color: #18181a;
+        border: 0.75vw solid white;
+        color: #18181a;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 0 6px 0 rgba(255, 255, 255, 0.4),
+          0 0 6px 0 rgba(99, 126, 238, 0.4);
+      }
+      progress::-webkit-progress-bar {
+        background-color: #18181a;
+        box-shadow: 0 0 6px 0 rgba(255, 255, 255, 0.4),
+          0 0 6px 0 rgba(99, 126, 238, 0.4);
+      }
+      progress::-webkit-progress-value {
+        background-color: #637eee;
+        box-shadow: 0 0 30px 10px rgba(99, 126, 238, 0.8);
+      }
+      progress::-moz-progress-bar {
+        background-color: #637eee;
+        box-shadow: 0 0 30px 10px rgba(99, 126, 238, 0.8);
+      }
+      button {
+        background-color: #18181a;
+        color: white;
+        border: 0.75vw solid white;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        box-shadow: 0 0 6px 0 rgba(255, 255, 255, 0.4),
+          0 0 6px 0 rgba(99, 126, 238, 0.4);
+        transition: box-shadow 0.3s ease-in-out;
+      }
+      button:hover {
+        box-shadow: 0 0 12px 0 rgba(255, 255, 255, 0.8),
+          0 0 30px 0 rgba(99, 126, 238, 0.6);
+      }
+      p {
+        font-size: 0.92em;
+        color: gray;
+      }
+      span {
+        font-weight: bold;
+        color: #637eee;
+        text-shadow: 0 0 4px rgba(99, 126, 238, 0.6);
+      }
+      hr {
+        width: 80%;
+        border: 0.5vw solid gray;
+        margin: 0.5rem;
+      }
+      .btn-div {
+        display: flex;
+        justify-content: space-around;
+        width: 80%;
+      }
+    </style>
+    <h1>VoidLink Updater</h1>
+    <hr />
+    <p>Current Version: <span id="currentVer"></span></p>
+    <p>Latest Version: <span id="latestVer"></span></p>
+    <p>Installer File: <span id="installerFile"></span></p>
+    <hr />
+    <progress value="0" max="100" id="progress"></progress>
+    <div class="btn-div">
+      <button onclick="update()">Begin Update</button>
+      <button onclick="cancel()">Ignore Update</button>
+    </div>
+
+    <script>
+      const currentVerSpan = document.getElementById("currentVer");
+      const latestVerSpan = document.getElementById("latestVer");
+      const installerFileSpan = document.getElementById("installerFile");
+      const progress = document.getElementById("progress");
+      const currentVer =
+        localStorage.getItem("CURRENT_VERSION") || "Failed to Load";
+      const latestVer =
+        localStorage.getItem("LATEST_VERSION") || "Failed to Load";
+      const installerFile = `voidlink-${latestVer} Setup.exe`;
+      currentVerSpan.innerText = currentVer;
+      latestVerSpan.innerText = latestVer;
+      installerFileSpan.innerText = installerFile;
+
+      function update() {
+        let i = 0;
+        const interval = setInterval(() => {
+          i += 1;
+          progress.value = i;
+          if (i >= 100) {
+            clearInterval(interval);
+            alert("Development in progress.");
+          }
+        }, 50);
+      }
+      function cancel() {
+        localStorage.setItem("IGNORE_UPDATES", Date.now());
+        const { ipcRenderer } = require("electron");
+        ipcRenderer.send("window-show");
+        setTimeout(() => {
+          window.close();
+        }, 500);
+      }
+    </script>
+  </body>
+</html>

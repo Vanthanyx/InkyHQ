@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>VoidLink 🛰️ - Beta Registration</title>
+    <link rel="stylesheet" href="../index.css" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="../pages/css/colors.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <script src="https://unpkg.com/js-alert/dist/jsalert.min.js"></script>
+  </head>
+  <body>
+    <div class="titlebar">
+      <button class="menu-btn" onclick="mM()">
+        <span class="material-symbols-outlined menu-icon"> apps </span>
+      </button>
+      <button class="menu-btn" onclick="home()">
+        <span class="material-symbols-outlined menu-icon"> home </span>
+      </button>
+      <button class="menu-btn" onclick="cW()">
+        <span class="material-symbols-outlined menu-icon"> close </span>
+      </button>
+    </div>
+    <div class="container">
+      <div class="form-container">
+        <form id="betaForm" onsubmit="event.preventDefault()">
+          <table cellpadding="4">
+            <caption>
+              <h3>Beta Registration Form [RSXB-Q2WA]</h3>
+            </caption>
+            <!----- First Name ---------------------------------------------------------->
+            <tr>
+              <td>MC USERNAME</td>
+              <td>
+                <input type="text" id="mc-username" maxlength="30" />
+                (max 30 characters)
+              </td>
+            </tr>
+
+            <!----- Last Name ---------------------------------------------------------->
+            <tr>
+              <td>DISCORD USER</td>
+              <td>
+                <input type="text" id="discord-user" maxlength="30" />
+                (max 30 characters)
+              </td>
+            </tr>
+
+            <!-- RIFTSCAPE User -->
+
+            <tr>
+              <td class="username">
+                RS USER
+                <span class="material-symbols-outlined help"> help </span>
+              </td>
+              <td>
+                <input type="text" id="riftscape-user" maxlength="30" />
+                (max 30 characters)
+              </td>
+            </tr>
+
+            <!----- Pin Code ---------------------------------------------------------->
+            <tr>
+              <td class="pin">
+                SET PIN
+                <span class="material-symbols-outlined help"> help </span>
+              </td>
+              <td>
+                <input type="password" id="pin-1" maxlength="4" />
+                (4 digit number)
+              </td>
+            </tr>
+
+            <tr>
+              <td>CONFIRM PIN</td>
+              <td>
+                <input type="password" id="pin-2" maxlength="4" />
+                (4 digit number)
+              </td>
+            </tr>
+
+            <!----- Region ---------------------------------------------------------->
+            <tr>
+              <td>REGION</td>
+              <td class="geo">
+                <select id="region">
+                  <option value="-1" selected></option>
+                  <option value="1">N. America</option>
+                  <option value="2">S. America</option>
+                  <option value="3">Europe</option>
+                  <option value="4">Asia</option>
+                  <option value="5">Australia</option>
+                  <option value="6">Africa</option>
+                </select>
+                <span class="material-symbols-outlined help"> vpn_lock </span>
+              </td>
+            </tr>
+
+            <!----- Contribution ---------------------------------------------------------->
+
+            <tr>
+              <td>
+                <span class="contributions">
+                  CONTRIBUTIONS
+                  <span class="material-symbols-outlined help">
+                    help
+                  </span></span
+                ><br /><br /><br />
+              </td>
+
+              <td>
+                Development
+                <input type="checkbox" id="dev" value="Development" />
+                Texturing
+                <input type="checkbox" id="tex" value="Texturing" />
+                Admin
+                <input type="checkbox" id="admin" value="Admin" />
+                <br />
+                Others
+                <input type="checkbox" id="other" value="other" />
+                <input type="text" id="other-text" maxlength="30" />
+                (opt.)
+              </td>
+            </tr>
+
+            <!----- Submit and Reset ------------------------------------------------->
+            <tr>
+              <td colspan="10" align="center">
+                <input type="submit" value="Submit" id="submitForm" />
+                <input type="reset" value="Reset" />
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+    <script>
+      const { ipcRenderer } = require("electron");
+
+      function mM() {
+        ipcRenderer.send("window-minimize");
+      }
+
+      function home() {
+        window.location.href = "../index.html";
+      }
+      function cW() {
+        window.close();
+      }
+    </script>
+    <script src="./validation.js"></script>
+  </body>
+</html>

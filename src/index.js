@@ -11,6 +11,37 @@ if (require("electron-squirrel-startup")) {
 // Main VoidLink App Window
 // ============================================================
 
+let loadingWindow;
+
+const createLoadingWindow = () => {
+  loadingWindow = new BrowserWindow({
+    width: 350,
+    height: 350,
+    frame: false,
+    //alwaysOnTop: true,
+    icon: path.join(__dirname, "assets", "bh2.ico"),
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
+      preload: path.join(__dirname, "preload.js"),
+    },
+  });
+
+  loadingWindow.loadFile(path.join(__dirname, "main.html"));
+
+  if (process.env.NODE_ENV !== "development") {
+    loadingWindow.on("resize", () => {
+      loadingWindow.setSize(350, 350);
+    });
+  }
+
+  loadingWindow.on("close", (event) => {
+    event.preventDefault();
+    loadingWindow.hide();
+  });
+};
+
 let mainWindow;
 let tray = null;
 
@@ -20,6 +51,7 @@ const createWindow = () => {
     height: 556,
     frame: false,
     icon: path.join(__dirname, "assets", "bh2.ico"),
+    show: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -114,10 +146,12 @@ const createTray = () => {
 // ============================================================
 
 app.whenReady().then(() => {
+  createLoadingWindow();
   createWindow();
 
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
+      createLoadingWindow();
       createWindow();
     }
   });
@@ -139,6 +173,19 @@ ipcMain.on("window-close", () => {
 
 ipcMain.on("window-minimize", () => {
   if (mainWindow) mainWindow.hide();
+});
+
+ipcMain.on("window-show", () => {
+  if (mainWindow) mainWindow.show();
+});
+
+ipcMain.on("check-for-updates", () => {
+  const appVersion = app.getVersion();
+  const packageJson = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "../package.json"))
+  );
+  const bNameVersion = packageJson.bNameVersion;
+  return { appVersion, bNameVersion };
 });
 
 ipcMain.handle("getAppVersion", () => app.getVersion());

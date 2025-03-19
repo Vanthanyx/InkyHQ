@@ -27,6 +27,12 @@ document.addEventListener("DOMContentLoaded", function () {
     "v" + currentVersion + " | v" + bNameVersion;
 });
 
+const { ipcRenderer } = require("electron");
+
+function mM() {
+  ipcRenderer.send("window-minimize");
+}
+
 function home() {
   window.location.href = "../index.html";
 }

@@ -32,6 +32,7 @@ if (!webdbrun) {
           // Store all values in sessionStorage or localStorage
           sessionStorage.setItem("WEB_DB_RUN", webData.WEB_DB_RUN);
           sessionStorage.setItem("LATEST_VERSION", webData.LATEST_VERSION);
+          localStorage.setItem("LATEST_VERSION", webData.LATEST_VERSION);
           sessionStorage.setItem("UPDATER_URL", webData.UPDATER_URL);
           sessionStorage.setItem("INSTALLER_URL", webData.INSTALLER_URL);
           sessionStorage.setItem("NEWS", JSON.stringify(webData.NEWS));
@@ -58,10 +59,11 @@ if (!webdbrun) {
 
           // Check for version updates
           if (compareVersions(webData.LATEST_VERSION, currentVersion)) {
-            alert(
+            // Disabled in favor of startup function.
+            /*alert(
               `ERROR 0x03\nA new version (${webData.LATEST_VERSION}) is available. Please update.`
-            );
-            sessionStorage.setItem("UPDATE_AVAILABLE", true);
+            );*/
+            localStorage.setItem("UPDATE_AVAILABLE", true);
           }
         } catch (error) {
           console.error("FATAL ERROR 0x04: ", error.message);

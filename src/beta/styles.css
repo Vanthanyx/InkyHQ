@@ -1,0 +1,161 @@
+.form-label {
+  color: white;
+  align-self: center;
+  display: flex;
+  justify-content: center;
+}
+.form-container {
+  background-color: var(--base);
+  border: 2px solid var(--acc);
+  border-radius: 6px;
+  color: white;
+  margin: 0 auto;
+  padding: 20px;
+  width: max-content;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1.5rem;
+}
+table {
+  color: white;
+  font-size: 11pt;
+  font-style: normal;
+  font-weight: bold;
+  border-collapse: collapse;
+}
+table.inner {
+  border: 0px;
+}
+
+table input {
+  border-radius: 4px;
+  border: 1px solid var(--acc);
+  background-color: var(--dark_base);
+  font-size: 10pt;
+  color: white;
+  outline: none;
+  padding: 0.2rem;
+}
+
+table input[type="password"] {
+  width: 28%;
+}
+
+table input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid var(--acc);
+  background-color: var(--dark_base);
+  border-radius: 4px;
+  appearance: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+table select {
+  border-radius: 4px;
+  border: 1px solid var(--acc);
+  background-color: var(--dark_base);
+  font-size: 10pt;
+  color: white;
+  outline: none;
+  padding: 0.2rem;
+}
+
+table input[type="checkbox"]:checked {
+  background-color: var(--acc); /* Change color when checked */
+}
+
+.help {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" -50, "opsz" 20;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.username:hover::after {
+  content: "Create a RIFTSCAPE Username";
+  position: absolute;
+  background: var(--dark_base);
+  color: white;
+  border: 1px dashed white;
+  padding: 0.2rem 0.6rem;
+  margin-left: 0.6rem;
+  border-radius: 0.2rem;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+.pin:hover::after {
+  content: "Create a RIFTSCAPE PIN";
+  position: absolute;
+  background: var(--dark_base);
+  color: white;
+  border: 1px dashed white;
+  padding: 0.2rem 0.6rem;
+  margin-left: 0.6rem;
+  border-radius: 0.2rem;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+.contributions:hover::after {
+  content: "Would you like to contribute any skills to our team?";
+  position: absolute;
+  background: var(--dark_base);
+  color: white;
+  border: 1px dashed white;
+  padding: 0.2rem 0.6rem;
+  margin-left: 0.6rem;
+  border-radius: 0.2rem;
+  font-size: 0.8rem;
+  white-space: normal;
+  max-width: 200px;
+}
+.geo:hover::after {
+  content: "Server access is geo-locked to the region you choose for your account.";
+  position: absolute;
+  background: var(--dark_base);
+  color: white;
+  border: 1px dashed var(--amber);
+  padding: 0.2rem 0.6rem;
+  margin-left: 0.6rem;
+  border-radius: 0.2rem;
+  font-size: 0.8rem;
+  white-space: normal;
+  max-width: 200px;
+}
+input[type="submit"],
+input[type="reset"] {
+  background-color: var(--dark_base);
+  color: var(--acc);
+  border: 1px solid white;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0.2rem 0.6rem;
+  transition: all 0.2s ease-in-out;
+}
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+  background-color: var(--acc);
+  color: white;
+  border: 1px solid var(--acc);
+}
+
+.registered-section {
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: max-content;
+  width: max-content;
+  padding: 0.2rem 0.6rem;
+  margin: 0;
+  background-color: var(--base);
+  border: 2px solid var(--acc);
+  border-radius: 10px 10px 0 0;
+  white-space: nowrap;
+  color: white;
+  font-size: small;
+}

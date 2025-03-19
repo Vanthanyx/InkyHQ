@@ -73,8 +73,9 @@
       }
 
       function cancel() {
-        sessionStorage.setItem("UPDATE_AVAILABLE", "false");
+        localStorage.setItem("UPDATE_AVAILABLE", false);
         JSAlert.loader("Cancelling...").dismissIn(2000);
+        localStorage.setItem("IGNORE_UPDATES", Date.now());
         setTimeout(() => {
           home();
         }, 3000);
@@ -193,7 +194,7 @@
                           }
                         );
                       } else {
-                        sessionStorage.setItem("UPDATE_AVAILABLE", "false");
+                        localStorage.setItem("UPDATE_AVAILABLE", false);
                         JSAlert.alert("Installer executed successfully.");
                       }
                     });
